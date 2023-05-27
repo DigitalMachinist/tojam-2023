@@ -134,6 +134,8 @@ public class Player : MonoBehaviour
         partTransform.SetParent(attachment.PartContainer, true);
         
         SetHasPart(part, false);
+        
+        EmitPartPlaced(part);
     }
 
     void Recall(Part part)
@@ -148,6 +150,8 @@ public class Player : MonoBehaviour
         
         Destroy(part.Attachment.gameObject);
         part.Attachment = attachment;
+        
+        EmitPartRecalled(part);
     }
 
     Attachment GetPartAttachment(Part part)
@@ -181,6 +185,46 @@ public class Player : MonoBehaviour
         else if (part == Leg)
         {
             HasLeg = value;
+        }
+        else
+        {
+            throw new Exception("What is this part?");
+        }
+    }
+
+    void EmitPartPlaced(Part part)
+    {
+        if (part == Arm)
+        {
+            ArmPlaced?.Invoke();
+        }
+        else if (part == Eye)
+        {
+            EyePlaced?.Invoke();
+        }
+        else if (part == Leg)
+        {
+            LegPlaced?.Invoke();
+        }
+        else
+        {
+            throw new Exception("What is this part?");
+        }
+    }
+
+    void EmitPartRecalled(Part part)
+    {
+        if (part == Arm)
+        {
+            ArmRecalled?.Invoke();
+        }
+        else if (part == Eye)
+        {
+            EyeRecalled?.Invoke();
+        }
+        else if (part == Leg)
+        {
+            LegRecalled?.Invoke();
         }
         else
         {

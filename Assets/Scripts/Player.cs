@@ -41,13 +41,12 @@ public class Player : MonoBehaviour
     public Attachment LegAttachment;
     
     // Are parts currently attached to the body or not?
-    public bool HasArm;
-    public bool HasEye;
-    public bool HasLeg;
-
     public bool IsArmEnabled = true;
     public bool IsEyeEnabled = true;
     public bool IsLegEnabled = true;
+    public bool HasArm;
+    public bool HasEye;
+    public bool HasLeg;
 
     void Start()
     {
@@ -105,6 +104,11 @@ public class Player : MonoBehaviour
             {
                 Recall(Eye);
             }
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Q)) // Should this be mouse button?
+        {
+            LaserStarted?.Invoke();
         }
     }
     

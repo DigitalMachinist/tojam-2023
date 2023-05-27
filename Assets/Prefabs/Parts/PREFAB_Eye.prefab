@@ -122,7 +122,7 @@ MonoBehaviour:
   maxRange: 1000
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 257
+    m_Bits: 129
   virtualCamera: {fileID: 4587364814634747171}
   xSensitivity: 300
   ySensitivity: 300

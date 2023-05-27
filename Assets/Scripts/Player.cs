@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Vector3 = System.Numerics.Vector3;
 
 public class Player : MonoBehaviour
 {
@@ -110,6 +109,8 @@ public class Player : MonoBehaviour
         {
             LaserStarted?.Invoke();
         }
+        
+        LookAround();
     }
     
     void Place(Part part)
@@ -230,5 +231,19 @@ public class Player : MonoBehaviour
         {
             throw new Exception("What is this part?");
         }
+    }
+    
+    void LookAround()
+    {
+        if (!HasEye)
+        {
+             return;   
+        }
+            
+        // Use the mouse to look around
+        var mouseX = Input.GetAxis("Mouse X");
+
+        // Rotate the player around the Y axis
+        transform.Rotate(Vector3.up * (mouseX * 100f * Time.deltaTime));
     }
 }

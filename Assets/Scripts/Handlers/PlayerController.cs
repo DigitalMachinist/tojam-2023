@@ -39,7 +39,6 @@ namespace Handlers
             CheckForPlatform();
             Jump();
             Move();
-            LookAround();
         }
 
         private void CheckForGround()
@@ -92,15 +91,6 @@ namespace Handlers
       
             playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
             playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
-        }
-        
-        private void LookAround()
-        {
-            // Use the mouse to look around
-            var mouseX = Input.GetAxis("Mouse X");
-
-            // Rotate the player around the Y axis
-            playerTransform.Rotate(Vector3.up * (mouseX * 100f * Time.deltaTime));
         }
     }
 }

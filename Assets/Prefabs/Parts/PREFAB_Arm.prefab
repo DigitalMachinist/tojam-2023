@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1257571921660512498}
   - component: {fileID: 6822980104780563154}
   - component: {fileID: 6965900940896013824}
-  - component: {fileID: 7820212700309988116}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -84,19 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7820212700309988116
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6079747843340757125}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6888626698513096262
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +113,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1135291189176713534}
+  - {fileID: 1620615218090230033}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -144,6 +131,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   Attachment: {fileID: 0}
+  minGrabRange: 0.1
+  maxGrabRange: 5
+  grabLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  grabVisibilityLayerMask:
+    serializedVersion: 2
+    m_Bits: 129
+  grabTransform: {fileID: 1620615218090230033}
+  minInteractRange: 0.1
+  maxInteractRange: 10
+  interactLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  interactVisibilityLayerMask:
+    serializedVersion: 2
+    m_Bits: 129
+--- !u!1 &8306557871299781623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1620615218090230033}
+  m_Layer: 0
+  m_Name: Grab Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1620615218090230033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8306557871299781623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3232210283106778752}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8676358894569053341
 GameObject:
   m_ObjectHideFlags: 0

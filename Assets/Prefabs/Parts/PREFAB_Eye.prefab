@@ -193,6 +193,9 @@ MonoBehaviour:
   maxRange: 1000
   interactableLayer:
     serializedVersion: 2
+    m_Bits: 128
+  visibleLayer:
+    serializedVersion: 2
     m_Bits: 129
   attachedCamera: {fileID: 4587364814634747171}
   xSensitivity: 300

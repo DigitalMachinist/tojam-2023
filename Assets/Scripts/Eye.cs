@@ -10,6 +10,7 @@ public class Eye : Part
     [SerializeField] private float minRange = 1f;
     [SerializeField] private float maxRange = 10f;
     [SerializeField] private LayerMask interactableLayer;
+    [FormerlySerializedAs("visibilityLayer")] [SerializeField] private LayerMask visibleLayer;
 
     [FormerlySerializedAs("virtualCamera")]
     [Header("Attached Camera Settings")] 
@@ -62,41 +63,8 @@ public class Eye : Part
     {
         Debug.Log("Firing lasers!");
         
-        var eyeInteractables = FindObjectsOfType<EyeInteractable>();
-        var inRangeInteractables = new List<EyeInteractable>();
-        
-        // For each interactable, raycast to it and see if it's in range
-        // Remove the ones that aren't in rangesform;
-        foreach (var interactable in eyeInteractables)
-        {
-            var interactableTransform = interactable.transform;
-            var direction = interactableTransform.position - transform.position;
-            var distance = direction.magnitude;
-            var ray = new Ray(transform.position, direction);
-            
-            // Draw the ray
-            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 1f);
-            
-            var hit = Physics.Raycast(ray, out var hitInfo, distance, interactableLayer);
-            if (!hit)
-            {
-                continue;
-            }
-            
-            Debug.Log($"Eye laser hit {hitInfo.transform.name}!");
-
-            if (hitInfo.transform != interactableTransform)
-            {
-                continue;
-            }
-
-            if (distance < minRange || distance > maxRange)
-            {
-                continue;
-            }
-            
-            inRangeInteractables.Add(interactable);
-        }
+        var inRangeInteractables =
+            transform.GetInteractablesInRange<EyeInteractable>(minRange, maxRange, interactableLayer, visibleLayer);
         
         // Sort the interactables by distance
         inRangeInteractables.Sort((a, b) =>

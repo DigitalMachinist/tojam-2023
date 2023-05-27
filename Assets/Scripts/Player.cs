@@ -110,7 +110,26 @@ public class Player : MonoBehaviour
         {
             LaserStarted?.Invoke();
         }
+
+        // G for Grabbing
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if (Arm.IsGrabbing)
+            {
+                GrabEnded?.Invoke();
+            }
+            else
+            {
+                GrabStarted?.Invoke();
+            }
+        }
         
+        // I for Interacting
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            InteractStarted?.Invoke();
+        }
+
         LookAround();
     }
     

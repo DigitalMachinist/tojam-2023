@@ -2,6 +2,7 @@
 using Cinemachine;
 using Interactables;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Eye : Part
 {
@@ -10,19 +11,30 @@ public class Eye : Part
     [SerializeField] private float maxRange = 10f;
     [SerializeField] private LayerMask interactableLayer;
 
-    [Header("Camera Settings")] 
-    [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [FormerlySerializedAs("virtualCamera")]
+    [Header("Attached Camera Settings")] 
+    [SerializeField] CinemachineVirtualCamera attachedCamera;
     [SerializeField] float xSensitivity = 300f;
     [SerializeField] float ySensitivity = 300f;
+    
+    [Header("Detached Camera Settings")]
+    [SerializeField] CinemachineVirtualCamera detachedCamera;
+    [SerializeField] float detachedXSensitivity = 300f;
+    [SerializeField] float detachedYSensitivity = 300f;
 
-    public void SetCameraEnabled(bool e) => virtualCamera.enabled = e;
+    void Awake()
+    {
+        CinemachinePOV povComponent = attachedCamera.GetCinemachineComponent<CinemachinePOV>();
+        povComponent.m_HorizontalAxis.m_MaxSpeed = xSensitivity;
+        povComponent.m_VerticalAxis.m_MaxSpeed = ySensitivity;
+        
+        povComponent = detachedCamera.GetCinemachineComponent<CinemachinePOV>();
+        povComponent.m_HorizontalAxis.m_MaxSpeed = detachedXSensitivity;
+        povComponent.m_VerticalAxis.m_MaxSpeed = detachedYSensitivity;
+    }
 
     void Start()
     {
-        CinemachinePOV povComponent = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
-        povComponent.m_HorizontalAxis.m_MaxSpeed = xSensitivity;
-        povComponent.m_VerticalAxis.m_MaxSpeed = ySensitivity;
-
         Player = FindObjectOfType<Player>();
         Attachment = Player.EyeAttachment;
         
@@ -30,16 +42,20 @@ public class Eye : Part
         Player.EyeRecalled += OnEyeRecalled;
         Player.LaserStarted += OnLaserStarted;
         Player.LaserEnded += OnLaserEnded;
+
+        OnEyeRecalled();
     }
 
     void OnEyePlaced()
     {
-        throw new System.NotImplementedException();
+        attachedCamera.enabled = false;
+        detachedCamera.enabled = true;
     }
 
     void OnEyeRecalled()
     {
-        throw new System.NotImplementedException();
+        attachedCamera.enabled = true;
+        detachedCamera.enabled = false;
     }
 
     void OnLaserStarted()

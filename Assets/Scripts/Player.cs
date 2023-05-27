@@ -5,9 +5,8 @@ using Vector3 = System.Numerics.Vector3;
 public class Player : MonoBehaviour
 {
     // This class represents the higher-level logical representation of the player in the game that exposes methods for
-    // other gameobjects to call, playing sounds, driving the animation controller, etc. It *should not* be responsible
-    // for movement controls and such -- PlayerController should be responsible for handling controls and converting 
-    // them into events that this class handles.
+    // other gameobjects to call, playing sounds, driving the animation controller, etc. This probably overlaps a lot
+    // with Dan's PlayerHandler, so maybe they are actually one thing.
     
     // Emit events based on controls. Other scripts that execute on these commands can listen for these events.
     public event Action ArmPlaced;

@@ -44,9 +44,10 @@ public class Player : MonoBehaviour
     public bool IsArmEnabled = true;
     public bool IsEyeEnabled = true;
     public bool IsLegEnabled = true;
-    public bool HasArm;
-    public bool HasEye;
-    public bool HasLeg;
+    
+    public bool HasArm { get; set; }
+    public bool HasEye { get; set; }
+    public bool HasLeg { get; set; }
 
     void Start()
     {

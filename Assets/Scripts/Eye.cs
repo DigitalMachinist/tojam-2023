@@ -47,7 +47,7 @@ public class Eye : Part
         Debug.Log("Firing lasers!");
         
         var eyeInteractables = FindObjectsOfType<EyeInteractable>();
-        var inRangeInteractables = new List<IInteractable>();
+        var inRangeInteractables = new List<EyeInteractable>();
         
         // For each interactable, raycast to it and see if it's in range
         // Remove the ones that aren't in rangesform;

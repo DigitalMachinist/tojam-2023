@@ -37,4 +37,19 @@ public class Player : MonoBehaviour
     public bool HasArm;
     public bool HasEye;
     public bool HasLeg;
+    
+    void Update()
+    {
+        FireLasers();
+    }
+    
+    void FireLasers()
+    {
+        if (!Input.GetMouseButtonDown(0))
+        {
+            return;
+        }
+        
+        LaserStarted?.Invoke();
+    }
 }

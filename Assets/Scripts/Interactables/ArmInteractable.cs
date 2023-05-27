@@ -20,7 +20,19 @@ namespace Interactables
             
             Debug.LogWarning($"{gameObject.name} interacted with arm!");
             
-            // TODO: Activate all the IActivatables here
+            if (!TryGetComponent(out Switch switchComponent))
+            {
+                return;
+            }
+            
+            if (switchComponent.IsOn)
+            {
+                switchComponent.Deactivate();
+            }
+            else
+            {
+                switchComponent.Activate();
+            }
         }
         
         public ArmInteractable Grab(Transform grabTransform)

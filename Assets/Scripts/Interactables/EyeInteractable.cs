@@ -15,8 +15,20 @@ namespace Interactables
             }
             
             Debug.LogWarning("Interacted with eye!");
+
+            if (!TryGetComponent(out Switch switchComponent))
+            {
+                return;
+            }
             
-            // TODO: Activate all the IActivatables here
+            if (switchComponent.IsOn)
+            {
+                switchComponent.Deactivate();
+            }
+            else
+            {
+                switchComponent.Activate();
+            }
         }
 
         void Start()

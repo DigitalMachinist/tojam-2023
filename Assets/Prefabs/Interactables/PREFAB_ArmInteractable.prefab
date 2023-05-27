@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5444636032382335253}
   - component: {fileID: 1477439386252750708}
   - component: {fileID: 1477439386252750603}
+  - component: {fileID: 1964805020127983691}
   m_Layer: 7
   m_Name: PREFAB_ArmInteractable
   m_TagString: Untagged
@@ -140,5 +141,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 712344692223401bbc5b12cacdd4c19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1964805020127983691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5444636032382335255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f384c178dd8b0164eaa8dcbbbf3f2980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

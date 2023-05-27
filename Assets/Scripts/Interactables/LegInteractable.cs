@@ -2,19 +2,19 @@
 
 namespace Interactables
 {
-    public class ArmInteractable : MonoBehaviour
+    public class LegInteractable : MonoBehaviour
     {
-        public Transform Transform { get; private set; }
+        public Transform Transform { get; }
         public Renderer Renderer { get; private set; }
-
-        public void Interact()
+        
+        public void Kick(Vector3 force)
         {
             if (!Renderer.isVisible)
             {
                 return;
             }
             
-            Debug.LogWarning($"{gameObject.name} interacted with arm!");
+            Debug.LogWarning("Interacted with by leg!");
             
             if (!TryGetComponent(out Switch switchComponent))
             {
@@ -33,7 +33,6 @@ namespace Interactables
         
         void Start()
         {
-            Transform = transform;
             Renderer = GetComponentInChildren<Renderer>();
         }
     }

@@ -18,6 +18,20 @@ namespace Interactables
             Rigidbody.AddForce(force, ForceMode.Impulse);
             
             Debug.LogWarning("Kicked by leg!");
+            
+            // if (!TryGetComponent(out Switch switchComponent))
+            // {
+            //     return;
+            // }
+            //
+            // if (switchComponent.IsOn)
+            // {
+            //     switchComponent.Deactivate();
+            // }
+            // else
+            // {
+            //     switchComponent.Activate();
+            // }
         }
         
         void Start()

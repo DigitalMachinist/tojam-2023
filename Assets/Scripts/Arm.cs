@@ -2,6 +2,8 @@
 {
     void Start()
     {
+        Player = FindObjectOfType<Player>();
+        Attachment = Player.ArmAttachment;
         Player.ArmPlaced += OnArmPlaced;
         Player.ArmRecalled += OnArmRecalled;
         Player.GrabStarted += OnGrabStarted;

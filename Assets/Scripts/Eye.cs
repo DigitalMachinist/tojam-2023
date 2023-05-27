@@ -2,6 +2,8 @@
 { 
     void Start()
     {
+        Player = FindObjectOfType<Player>();
+        Attachment = Player.EyeAttachment;
         Player.EyePlaced += OnEyePlaced;
         Player.EyeRecalled += OnEyeRecalled;
         Player.LaserStarted += OnLaserStarted;

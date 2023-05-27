@@ -2,6 +2,8 @@
 {
     void Start()
     {
+        Player = FindObjectOfType<Player>();
+        Attachment = Player.LegAttachment;
         Player.Jumped += OnJumped;
         Player.Kicked += OnKicked;
         Player.LegPlaced += OnLegPlaced;

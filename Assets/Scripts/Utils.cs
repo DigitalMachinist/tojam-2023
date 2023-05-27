@@ -5,7 +5,7 @@ using UnityEngine;
 public static class Utils
 {
         public static List<T> GetInteractablesInRange<T>(this Transform transform, float minRange, float maxRange,
-            LayerMask interactableLayerMask, LayerMask raycastLayerMask) where T : MonoBehaviour, IInteractable
+            LayerMask interactableLayerMask, LayerMask raycastLayerMask) where T : MonoBehaviour
         {
             var interactables = new List<T>();
             var colliders = Physics.OverlapSphere(transform.position, maxRange, interactableLayerMask);

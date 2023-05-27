@@ -17,7 +17,7 @@ public class Arm : Part
     [SerializeField] LayerMask interactLayerMask;
     [SerializeField] LayerMask interactVisibilityLayerMask;
 
-    ArmInteractable grabbedInteractable;
+    ArmGrabInteractable grabbedInteractable;
     public bool IsGrabbing => grabbedInteractable != null;
     
     void Start()
@@ -50,7 +50,7 @@ public class Arm : Part
             return;
         }
         
-        var interactablesInRange = transform.GetInteractablesInRange<ArmInteractable>(minGrabRange, 
+        var interactablesInRange = transform.GetInteractablesInRange<ArmGrabInteractable>(minGrabRange, 
             maxGrabRange, grabLayerMask, grabVisibilityLayerMask);
         
         // Grab The Closest One

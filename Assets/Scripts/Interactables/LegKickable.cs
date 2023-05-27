@@ -2,26 +2,28 @@
 
 namespace Interactables
 {
-    public class LegInteractable : MonoBehaviour, IInteractable
+    public class LegKickable : MonoBehaviour
     {
         public Transform Transform { get; }
         public Renderer Renderer { get; private set; }
+        public Rigidbody Rigidbody { get; private set; }
         
-        public void Interact()
+        public void Kick(Vector3 force)
         {
             if (!Renderer.isVisible)
             {
                 return;
             }
             
-            Debug.LogWarning("Interacted with leg!");
+            Rigidbody.AddForce(force, ForceMode.Impulse);
             
-            // TODO: Activate all the IActivatables here
+            Debug.LogWarning("Kicked by leg!");
         }
         
         void Start()
         {
             Renderer = GetComponentInChildren<Renderer>();
+            Rigidbody = GetComponentInChildren<Rigidbody>();
         }
     }
 }

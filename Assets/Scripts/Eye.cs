@@ -69,9 +69,9 @@ public class Eye : Part
         // Sort the interactables by distance
         inRangeInteractables.Sort((a, b) =>
         {
-            var aDistance = (a.Transform.position - transform.position).magnitude;
-            var bDistance = (b.Transform.position - transform.position).magnitude;
-            return aDistance.CompareTo(bDistance);
+            var aSqrDistance = (a.Transform.position - transform.position).sqrMagnitude;
+            var bSqrDistance = (b.Transform.position - transform.position).sqrMagnitude;
+            return aSqrDistance.CompareTo(bSqrDistance);
         });
         
         // Interact with all interactables in range
@@ -86,8 +86,12 @@ public class Eye : Part
         throw new System.NotImplementedException();
     }
 
-    public override void Attach(Attachment attachment)
+    public Vector3 GetLookVector()
     {
-        throw new System.NotImplementedException();
+        var vcam = attachedCamera.enabled
+            ? attachedCamera
+            : detachedCamera;
+
+        return vcam.State.CorrectedOrientation * Vector3.forward;
     }
 }

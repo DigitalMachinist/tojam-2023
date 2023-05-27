@@ -34,12 +34,10 @@ public class Arm : Part
 
     void OnArmPlaced()
     {
-        throw new System.NotImplementedException();
     }
 
     void OnArmRecalled()
     {
-        throw new System.NotImplementedException();
     }
 
     void OnGrabStarted()
@@ -97,11 +95,6 @@ public class Arm : Part
     }
 
     void OnInteractEnded()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Attach(Attachment attachment)
     {
         throw new System.NotImplementedException();
     }

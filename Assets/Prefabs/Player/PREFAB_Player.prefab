@@ -156,7 +156,6 @@ GameObject:
   - component: {fileID: 5935271255256451361}
   - component: {fileID: 8710162558580081292}
   - component: {fileID: 3591197269910857181}
-  - component: {fileID: 7718456999129817772}
   m_Layer: 0
   m_Name: PREFAB_Player
   m_TagString: Untagged
@@ -223,26 +222,8 @@ MonoBehaviour:
   IsArmEnabled: 1
   IsEyeEnabled: 1
   IsLegEnabled: 1
-  HasArm: 0
-  HasEye: 0
-  HasLeg: 0
---- !u!114 &7718456999129817772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7976097150345699713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2a3a54aa2104531972f5806bbdc182e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   moveSpeed: 10
-  useXMovement: 1
-  useZMovement: 1
   jumpForce: 5
-  useJump: 1
   groundLayer:
     serializedVersion: 2
     m_Bits: 72

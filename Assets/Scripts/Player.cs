@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
     public Eye Eye;
     public Leg Leg;
     
-    // 
+    // Part attachment points that are part of the player's body.
     public Attachment ArmAttachment;
     public Attachment EyeAttachment;
     public Attachment LegAttachment;
@@ -43,6 +43,18 @@ public class Player : MonoBehaviour
     public bool IsArmEnabled = true;
     public bool IsEyeEnabled = true;
     public bool IsLegEnabled = true;
+        
+    [Header("Movement")]
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask platformLayer;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.1f;
+
+    private Transform playerTransform;
+    private Rigidbody playerRigidbody;
+    private bool isGrounded;
     
     public bool HasArm { get; set; }
     public bool HasEye { get; set; }
@@ -50,6 +62,13 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        // Lock the mouse in the center and hide it
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        playerTransform = transform;
+        playerRigidbody = GetComponent<Rigidbody>();
+
         if (IsArmEnabled)
         {
             Arm = FindObjectOfType<Arm>();
@@ -71,30 +90,68 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        CheckForGround();
+        CheckForPlatform();
+        Move();
+        
         // TODO: Replace this with the actual input manager stuff.
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (IsArmEnabled)
         {
-            if (HasArm)
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Place(Arm);
+                if (HasArm)
+                {
+                    Place(Arm);
+                }
+                else
+                {
+                    Recall(Arm);
+                }
             }
-            else
+    
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                Recall(Arm);
+                // TODO: Hold to continue interacting?
+                InteractStarted?.Invoke();
+                
+                if (Arm.IsGrabbing)
+                {
+                    GrabEnded?.Invoke();
+                }
+                else
+                {
+                    GrabStarted?.Invoke();
+                }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+
+        if (IsLegEnabled)
         {
-            if (HasLeg)
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Place(Leg);
+                if (HasLeg)
+                {
+                    Place(Leg);
+                }
+                else
+                {
+                    Recall(Leg);
+                }
             }
-            else
+
+            if (HasLeg && isGrounded && Input.GetKeyDown(KeyCode.Space))
             {
-                Recall(Leg);
+                playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                Jumped?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Kicked?.Invoke();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (HasEye)
             {
@@ -111,36 +168,61 @@ public class Player : MonoBehaviour
             LaserStarted?.Invoke();
         }
 
-        // G for Grabbing
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (Arm.IsGrabbing)
-            {
-                GrabEnded?.Invoke();
-            }
-            else
-            {
-                GrabStarted?.Invoke();
-            }
-        }
-        
-        // I for Interacting
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            InteractStarted?.Invoke();
-        }
 
         LookAround();
+    }
+
+    void CheckForGround()
+    {
+        var groundCheckPosition = groundCheck.position;
+        isGrounded = Physics.CheckSphere(groundCheckPosition, groundCheckRadius, groundLayer);
+    }
+    
+    void CheckForPlatform()
+    {
+        if (!isGrounded)
+        {
+            return;
+        }
+        
+        var platformDetected = Physics.CheckSphere(groundCheck.position, groundCheckRadius, platformLayer);
+
+        if (platformDetected)
+        {
+            var platform = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, platformLayer)[0].transform;
+            playerTransform.parent = platform;
+        }
+        else
+        {
+            playerTransform.parent = null;
+        }
+    }
+
+    void Move()
+    {
+        // TODO: Handle movement differently when the eye is attached to a surface?
+            
+        var x = Input.GetAxis("Horizontal");
+        var z = Input.GetAxis("Vertical");
+
+        var movement = new Vector3(x, 0, z);
+        playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
+        playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
     }
     
     void Place(Part part)
     {
-        var eyeTransform = Eye.transform;
+        var lookPosition = Eye.transform.position;
+        var lookDirection = Eye.GetLookVector();
         
         Attachment attachment;
         try
         {
-            attachment = AttachmentPlacer.TryPlace(new Ray(eyeTransform.position, eyeTransform.forward));
+            attachment = AttachmentPlacer.TryPlace(new Ray(lookPosition, lookDirection));
+            
+            // Draw a debug ray in the scene view so we can confirm the placement.
+            var lookToAttachment = attachment.transform.position - lookPosition;
+            Debug.DrawRay(lookPosition, lookToAttachment, Color.red, 10f);
         }
         catch (Exception e)
         {

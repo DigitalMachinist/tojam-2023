@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Q)) // Should this be mouse button?
+        if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0)) // Should this be mouse button?
         {
             LaserStarted?.Invoke();
         }

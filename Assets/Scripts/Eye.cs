@@ -1,5 +1,5 @@
 ﻿public class Eye : Part
-{
+{ 
     void Start()
     {
         Player.EyePlaced += OnEyePlaced;

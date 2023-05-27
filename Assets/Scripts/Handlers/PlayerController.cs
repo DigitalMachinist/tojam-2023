@@ -3,7 +3,7 @@
 namespace Handlers
 {
     [RequireComponent(typeof(Transform))]
-    public class PlayerHandler : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         [SerializeField] private float moveSpeed = 5f;
         [SerializeField] private bool useXMovement = true;
@@ -22,7 +22,6 @@ namespace Handlers
         private Transform playerTransform;
         private Rigidbody playerRigidbody;
         private bool isGrounded;
-        private bool lastPlatformDetected;
 
         private void Start()
         {
@@ -67,8 +66,6 @@ namespace Handlers
             {
                 playerTransform.parent = null;
             }
-            
-            lastPlatformDetected = platformDetected;
         }
 
         private void Jump()

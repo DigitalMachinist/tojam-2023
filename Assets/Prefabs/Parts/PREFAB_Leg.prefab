@@ -132,7 +132,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   Attachment: {fileID: 0}
   kickForceForward: 4
-  kickForceUpward: 2
+  kickForceUpward: 1.5
   minKickRange: 0.1
   maxKickRange: 5
   kickLayerMask:

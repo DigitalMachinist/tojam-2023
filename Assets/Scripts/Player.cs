@@ -53,10 +53,17 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.1f;
 
+    [Header("Eye Camera")] 
+    [SerializeField] float minEyeAngle = -90f;
+    [SerializeField] private float maxEyeAngle = 90f;
+    [SerializeField] float eyeXSensitivity = 100f;
+    [SerializeField] float eyeYSensitivity = 100f;
+
     private Transform playerTransform;
     private Rigidbody playerRigidbody;
     PlayerInputHandler playerInputHandler;
     private bool isGrounded;
+    float rotY;
     
     public bool HasArm { get; set; }
     public bool HasEye { get; set; }
@@ -161,10 +168,15 @@ public class Player : MonoBehaviour
             
         // Use the mouse to look around
         var mouseX = playerInputHandler.LookAroundInput.x;
-        // TODO: mouseY = playerInputHandler.LookAroundInput.y;
+        var mouseY = playerInputHandler.LookAroundInput.y;
+        rotY += mouseY % 360 * eyeYSensitivity * Time.deltaTime;
 
         // Rotate the player around the Y axis
-        transform.Rotate(Vector3.up * (mouseX * 100f * Time.deltaTime));
+        transform.Rotate(Vector3.up * (mouseX * eyeXSensitivity * Time.deltaTime));
+        
+        // Rotate the Eye's active camera to look up and down, but clamp it so it can't look too far up or down
+        rotY = Mathf.Clamp(rotY, minEyeAngle, maxEyeAngle);
+        Eye.ActiveCamera.localRotation = Quaternion.Euler(-rotY, 0f, 0f);
     }
 
     void OnJumpPressed()

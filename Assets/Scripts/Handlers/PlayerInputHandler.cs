@@ -53,7 +53,10 @@ namespace Handlers
         void Update()
         {
             WalkInput = Walk.ReadValue<Vector2>();
+            
+            // If there's a device connected, use the look around input from the device, otherwise use the mouse
             LookAroundInput = LookAround.ReadValue<Vector2>();
+            Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput}");
         }
 
         // void OnEnable() => playerActions?.PlayerActionMap.Enable();

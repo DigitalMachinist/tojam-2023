@@ -19,9 +19,11 @@ public class Arm : Part
 
     ArmGrabInteractable grabbedInteractable;
     public bool IsGrabbing => grabbedInteractable != null;
+    public bool IsGrabbingBox { get; private set; }
     
     void Start()
     {
+        IsGrabbingBox = false;
         Player = FindObjectOfType<Player>();
         Attachment = Player.ArmAttachment;
         Player.ArmPlaced += OnArmPlaced;
@@ -63,6 +65,11 @@ public class Arm : Part
             .First();
         
         grabbedInteractable = closestInteractable.Grab(grabTransform);
+
+        if (grabbedInteractable.CompareTag("Box"))
+        {
+            IsGrabbingBox = true;
+        }
     }
 
     void OnGrabEnded()
@@ -75,6 +82,7 @@ public class Arm : Part
         
         grabbedInteractable.Release();
         grabbedInteractable = null;
+        IsGrabbingBox = false;
     }
 
     void OnInteractStarted()

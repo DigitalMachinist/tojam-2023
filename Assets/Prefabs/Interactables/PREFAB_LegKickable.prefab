@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4769473320226913884}
   - component: {fileID: 4769473320226913891}
   - component: {fileID: 7680699573488394620}
+  - component: {fileID: 7974116136050929745}
   m_Layer: 7
   m_Name: PREFAB_LegKickable
   m_TagString: Ball
@@ -144,3 +145,15 @@ MonoBehaviour:
   FadeCanvas: {fileID: 0}
   PreDeathSeconds: 1
   PostDeathSeconds: 0
+--- !u!114 &7974116136050929745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769473320226913890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 697118ff5b9748dbb78118edcbd65a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

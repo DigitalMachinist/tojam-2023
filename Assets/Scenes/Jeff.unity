@@ -498,40 +498,13 @@ GameObject:
   m_Component:
   - component: {fileID: 776112353}
   - component: {fileID: 776112352}
-  - component: {fileID: 776112351}
-  - component: {fileID: 776112350}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &776112350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776112349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938d5320413b4f86928ac95f8cef3fb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Switch: {fileID: 776112351}
---- !u!114 &776112351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776112349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f384c178dd8b0164eaa8dcbbbf3f2980, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &776112352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Barrier: {fileID: 1865677248}
   Switches:
-  - {fileID: 776112351}
+  - {fileID: 4895297573293589791}
 --- !u!4 &776112353
 Transform:
   m_ObjectHideFlags: 0
@@ -1229,3 +1202,84 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7846c118fc643084f83b02b24f74f56d, type: 3}
+--- !u!1001 &4895297573293589790
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787793826015005067, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783875495297533899, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+        type: 3}
+      propertyPath: m_Name
+      value: PREFAB_PuttHoleSwitch
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b464bc6bfcd87d5488b622ca3c8ea042, type: 3}
+--- !u!114 &4895297573293589791 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9145578936305454929, guid: b464bc6bfcd87d5488b622ca3c8ea042,
+    type: 3}
+  m_PrefabInstance: {fileID: 4895297573293589790}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e04f77b7d671804abe7d26c32f2195e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

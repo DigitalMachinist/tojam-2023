@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7680699573488394620}
   m_Layer: 7
   m_Name: PREFAB_LegKickable
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

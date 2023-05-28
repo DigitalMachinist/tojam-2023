@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Attachable
+  - Ball
+  - Box
   layers:
   - Default
   - TransparentFX

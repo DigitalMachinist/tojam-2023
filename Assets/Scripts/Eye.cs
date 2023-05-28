@@ -22,18 +22,9 @@ public class Eye : Part
     [SerializeField] CinemachineVirtualCamera detachedCamera;
     [SerializeField] float detachedXSensitivity = 300f;
     [SerializeField] float detachedYSensitivity = 300f;
-
-    void Awake()
-    {
-        CinemachinePOV povComponent = attachedCamera.GetCinemachineComponent<CinemachinePOV>();
-        povComponent.m_HorizontalAxis.m_MaxSpeed = xSensitivity;
-        povComponent.m_VerticalAxis.m_MaxSpeed = ySensitivity;
-        
-        povComponent = detachedCamera.GetCinemachineComponent<CinemachinePOV>();
-        povComponent.m_HorizontalAxis.m_MaxSpeed = detachedXSensitivity;
-        povComponent.m_VerticalAxis.m_MaxSpeed = detachedYSensitivity;
-    }
-
+    
+    public Transform ActiveCamera => attachedCamera.enabled ? attachedCamera.transform : detachedCamera.transform;
+    
     void Start()
     {
         Player = FindObjectOfType<Player>();

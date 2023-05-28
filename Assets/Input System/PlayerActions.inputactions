@@ -530,6 +530,61 @@
                     "action": "LookAround",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "42739554-ec69-4b2b-99eb-5de7320b7abd",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "NormalizeVector2,StickDeadzone(min=0.25,max=1)",
+                    "groups": "",
+                    "action": "LookAround",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "e9e9a8ce-08fb-4cce-9a14-a3c3fabaf0ca",
+                    "path": "<Mouse>/delta/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAround",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "792273f2-5c31-43b7-999b-3883af900f71",
+                    "path": "<Mouse>/delta/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAround",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c25d91ce-7f05-41cc-8b20-6625a08d3100",
+                    "path": "<Mouse>/delta/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAround",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "02da6e7c-d5e1-4cc0-b9f3-f0a65d816e53",
+                    "path": "<Mouse>/delta/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LookAround",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

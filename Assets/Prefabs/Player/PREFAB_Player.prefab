@@ -223,7 +223,6 @@ MonoBehaviour:
   IsArmEnabled: 1
   IsEyeEnabled: 1
   IsLegEnabled: 1
-  playerInputHandler: {fileID: 0}
   moveSpeed: 10
   jumpForce: 5
   groundLayer:
@@ -234,6 +233,8 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 6758250530922299316}
   groundCheckRadius: 0.25
+  minEyeAngle: -90
+  maxEyeAngle: 90
 --- !u!114 &8824789644280296159
 MonoBehaviour:
   m_ObjectHideFlags: 0

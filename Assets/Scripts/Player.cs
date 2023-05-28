@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
     public bool HasEye { get; set; }
     public bool HasLeg { get; set; }
 
-    void Start()
+    void Awake()
     {
         // Lock the mouse in the center and hide it
         Cursor.lockState = CursorLockMode.Locked;
@@ -106,7 +106,10 @@ public class Player : MonoBehaviour
             Leg = FindObjectOfType<Leg>();
             HasLeg = true;
         }
+    }
 
+    void Start()
+    {
         playerInputHandler = GetComponent<PlayerInputHandler>();
         playerInputHandler.JumpPressed += OnJumpPressed;
 

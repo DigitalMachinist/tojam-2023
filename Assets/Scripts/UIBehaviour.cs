@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UIBehaviour : MonoBehaviour
@@ -23,9 +21,17 @@ public class UIBehaviour : MonoBehaviour
 
     void Start()
     {
+        player.ArmEnabled += EnableArm;
+        player.ArmPlaced += ArmInUse;
+        player.ArmRecalled += RecallArm;
+        player.EyeEnabled += EnableEye;
+        player.EyePlaced += EyeInUse;
+        player.EyeRecalled += RecallEye;
+        player.EyeEnabled += EnableEye;
+        player.EyePlaced += EyeInUse;
+        player.EyeRecalled += RecallEye;
 
         // ARM Section
-
         if (!player.HasArm)
         {
             DisableArm();
@@ -34,13 +40,8 @@ public class UIBehaviour : MonoBehaviour
         {
             EnableArm();
         }
-
-        player.ArmEnabled += EnableArm;
-        player.ArmPlaced += ArmInUse;
-        player.ArmRecalled += RecallArm;
-
+        
         // Eye Section
-
         if (!player.HasEye)
         {
             DisableEye();
@@ -50,12 +51,7 @@ public class UIBehaviour : MonoBehaviour
             EnableEye();
         }
 
-        player.EyeEnabled += EnableEye;
-        player.EyePlaced += EyeInUse;
-        player.EyeRecalled += RecallEye;
-
         // Leg Section
-
         if (!player.HasLeg)
         {
             DisableLeg();
@@ -64,10 +60,6 @@ public class UIBehaviour : MonoBehaviour
         {
             EnableLeg();
         }
-
-        player.EyeEnabled += EnableEye;
-        player.EyePlaced += EyeInUse;
-        player.EyeRecalled += RecallEye;
     }
 
     void EnableEye()

@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e04f77b7d671804abe7d26c32f2195e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchRenderer: {fileID: 3052986462127543262}
+  doorLightRenderer: {fileID: 0}
 --- !u!1001 &6681934193106444656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,6 +133,12 @@ PrefabInstance:
 --- !u!4 &582274117986735289 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6101911880436397513, guid: a185f438b16835a4587672f9e660a24c,
+    type: 3}
+  m_PrefabInstance: {fileID: 6681934193106444656}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3052986462127543262 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8567144722493420206, guid: a185f438b16835a4587672f9e660a24c,
     type: 3}
   m_PrefabInstance: {fileID: 6681934193106444656}
   m_PrefabAsset: {fileID: 0}

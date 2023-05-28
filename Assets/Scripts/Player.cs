@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
 
     void OnJumpPressed()
     {
-        if (!IsLegEnabled || !HasLeg || !isGrounded)
+        if (!IsLegEnabled || !HasLeg || !isGrounded || (HasArm && Arm.IsGrabbing))
         {
             return;
         }

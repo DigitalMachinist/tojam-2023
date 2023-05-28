@@ -45,14 +45,19 @@ namespace Handlers
             playerActions.PlayerActionMap.UseRightLeg.performed += OnUseRightLeg;
         }
 
+        void Start()
+        {
+            playerActions?.PlayerActionMap.Enable();
+        }
+
         void Update()
         {
             WalkInput = Walk.ReadValue<Vector2>();
             LookAroundInput = LookAround.ReadValue<Vector2>();
         }
 
-        void OnEnable() => playerActions?.PlayerActionMap.Enable();
-        void OnDisable() => playerActions?.PlayerActionMap.Disable();
+        // void OnEnable() => playerActions?.PlayerActionMap.Enable();
+        // void OnDisable() => playerActions?.PlayerActionMap.Disable();
 
         void OnJump(InputAction.CallbackContext context)
         {

@@ -134,7 +134,7 @@ MonoBehaviour:
   kickForceForward: 4
   kickForceUpward: 2
   minKickRange: 0.1
-  maxKickRange: 4
+  maxKickRange: 5
   kickLayerMask:
     serializedVersion: 2
     m_Bits: 128

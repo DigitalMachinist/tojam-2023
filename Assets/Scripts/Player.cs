@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
     // with Dan's PlayerHandler, so maybe they are actually one thing.
     
     // Emit events based on controls. Other scripts that execute on these commands can listen for these events.
+    public event Action ArmEnabled;
     public event Action ArmPlaced;
     public event Action ArmRecalled;
     public event Action Died;
+    public event Action EyeEnabled;
     public event Action EyePlaced;
     public event Action EyeRecalled;
     public event Action GrabEnded; // Arm
@@ -22,6 +24,7 @@ public class Player : MonoBehaviour
     public event Action Kicked; // Leg
     public event Action LaserEnded; // Eye
     public event Action LaserStarted; // Eye
+    public event Action LegEnabled;
     public event Action LegPlaced;
     public event Action LegRecalled;
     public event Action<Vector3> Moved;
@@ -401,5 +404,23 @@ public class Player : MonoBehaviour
         {
             throw new Exception("What is this part?");
         }
+    }
+
+    public void EnableArm()
+    {
+        IsArmEnabled = true;
+        ArmEnabled?.Invoke();
+    }
+
+    public void EnableEye()
+    {
+        IsEyeEnabled = true;
+        EyeEnabled?.Invoke();
+    }
+
+    public void EnableLeg()
+    {
+        IsLegEnabled = true;
+        LegEnabled?.Invoke();
     }
 }

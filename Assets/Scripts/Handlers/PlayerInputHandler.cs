@@ -64,12 +64,10 @@ namespace Handlers
                 if (activeDevice == Mouse.current)
                 {
                     LookAroundInput = Mouse.current.delta.ReadValue() * mouseMultiplier;
-                    Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput} (x{mouseMultiplier}))");
                 }
                 else if (activeDevice == Gamepad.current)
                 {
                     LookAroundInput = LookAround.ReadValue<Vector2>() * gamepadMultiplier;
-                    Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput} (x{gamepadMultiplier}))");
                 }
             }
             else

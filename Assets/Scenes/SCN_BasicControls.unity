@@ -1275,6 +1275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bb5ed75169448892395cf37353cebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseMultiplier: 0.4
+  gamepadMultiplier: 1
 --- !u!1001 &4795946082915955147
 PrefabInstance:
   m_ObjectHideFlags: 0

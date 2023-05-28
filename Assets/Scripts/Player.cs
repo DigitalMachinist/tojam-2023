@@ -261,12 +261,10 @@ public class Player : MonoBehaviour
         if (HasArm)
         {
             Place(Arm);
-            IsArmAttached(false);
         }
         else
         {
             Recall(Arm);
-            IsArmAttached(true);
         }
     }
 
@@ -300,12 +298,10 @@ public class Player : MonoBehaviour
         if (HasLeg)
         {
             Place(Leg);
-            IsLegAttached(false);
         }
         else
         {
             Recall(Leg);
-            IsLegAttached(true);
         }
     }
 
@@ -348,6 +344,12 @@ public class Player : MonoBehaviour
         SetHasPart(part, false);
 
         EmitPartPlaced(part);
+
+        if( part == Arm)
+        IsArmAttached(false);
+
+        if( part == Leg)
+        IsLegAttached(false);
     }
 
     void Recall(Part part)
@@ -364,6 +366,12 @@ public class Player : MonoBehaviour
         part.Attachment = attachment;
 
         EmitPartRecalled(part);
+
+        if( part == Leg)
+        IsLegAttached(true);
+
+        if( part == Arm)
+        IsArmAttached(true);
     }
 
     Attachment GetPartAttachment(Part part)

@@ -501,7 +501,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""a75c28ef-c54d-42e9-bb40-be45ccdbf9b5"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -556,9 +556,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector"",
                     ""id"": ""42739554-ec69-4b2b-99eb-5de7320b7abd"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
-                    ""processors"": ""NormalizeVector2,StickDeadzone(min=0.25,max=1)"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LookAround"",
                     ""isComposite"": true,

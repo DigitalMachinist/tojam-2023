@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     // This class represents the higher-level logical representation of the player in the game that exposes methods for
     // other gameobjects to call, playing sounds, driving the animation controller, etc. This probably overlaps a lot
     // with Dan's PlayerHandler, so maybe they are actually one thing.
-    
+
     // Emit events based on controls. Other scripts that execute on these commands can listen for these events.
     public event Action ArmPlaced;
     public event Action ArmRecalled;
@@ -29,17 +29,17 @@ public class Player : MonoBehaviour
     public event Action Spawned;
 
     public AttachmentPlacer AttachmentPlacer;
-    
+
     // References to the parts. These should remain set even when the part is not attached to the body.
     public Arm Arm;
     public Eye Eye;
     public Leg Leg;
-    
+
     // Part attachment points that are part of the player's body.
     public Attachment ArmAttachment;
     public Attachment EyeAttachment;
     public Attachment LegAttachment;
-    
+
     // Are parts currently attached to the body or not?
     public bool IsArmEnabled = true;
     public bool IsEyeEnabled = true;
@@ -53,13 +53,18 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.1f;
 
-    [Header("Eye Camera")] 
+    [Header("Eye Camera")]
     [SerializeField] float minEyeAngle = -90f;
     [SerializeField] private float maxEyeAngle = 90f;
     [SerializeField] float minXEyeAngle = -60f;
     [SerializeField] float maxXEyeAngle = 60f;
     [SerializeField] float eyeXSensitivity = 100f;
     [SerializeField] float eyeYSensitivity = 100f;
+
+    [Header("Detachable parts")]
+    public GameObject armMesh;
+    public GameObject legMesh;
+
 
     private Transform playerTransform;
     private Rigidbody playerRigidbody;
@@ -98,23 +103,23 @@ public class Player : MonoBehaviour
             Leg = FindObjectOfType<Leg>();
             HasLeg = true;
         }
-        
+
         playerInputHandler = GetComponent<PlayerInputHandler>();
         playerInputHandler.JumpPressed += OnJumpPressed;
-        
+
         playerInputHandler.AttachDetachEyePressed += OnAttachDetachEyePressed;
         playerInputHandler.UseEyePressed += OnUseEyePressed;
-        
+
         playerInputHandler.AttachDetachLeftArmPressed += OnAttachDetachLeftArmPressed;
         playerInputHandler.UseLeftArmPressed += OnUseLeftArmPressed;
-        
+
         // TODO: Uncomment these if we implement the right arm.
         // playerInputHandler.AttachDetachRightArmPressed += OnAttachDetachRightArmPressed;
         // playerInputHandler.UseRightArmPressed += OnUseRightArmPressed;
-        
+
         playerInputHandler.AttachDetachLeftLegPressed += OnAttachDetachLeftLegPressed;
         playerInputHandler.UseLeftLegPressed += OnUseLeftLegPressed;
-        
+
         // TODO: Uncomment these if we implement the right leg.
         // playerInputHandler.AttachDetachRightLegPressed += OnAttachDetachRightLegPressed;
         // playerInputHandler.UseRightLegPressed += OnUseRightLegPressed;
@@ -133,14 +138,14 @@ public class Player : MonoBehaviour
         var groundCheckPosition = groundCheck.position;
         isGrounded = Physics.CheckSphere(groundCheckPosition, groundCheckRadius, groundLayer);
     }
-    
+
     void CheckForPlatform()
     {
         if (!isGrounded)
         {
             return;
         }
-        
+
         var platformDetected = Physics.CheckSphere(groundCheck.position, groundCheckRadius, platformLayer);
 
         if (platformDetected)
@@ -161,7 +166,36 @@ public class Player : MonoBehaviour
         playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
         playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
     }
-    
+
+    void IsArmAttached(bool state)
+    {
+        if (state)
+        {
+            armMesh.SetActive(true);
+            Arm.gameObject.GetComponentInChildren<Renderer>().enabled = false;
+
+        }
+        else
+        {
+            armMesh.SetActive(false);
+            Arm.gameObject.GetComponentInChildren<Renderer>().enabled = true;
+        }
+    }
+    void IsLegAttached(bool state)
+    {
+        if (state)
+        {
+            legMesh.SetActive(true);
+            Leg.gameObject.GetComponentInChildren<Renderer>().enabled = false;
+
+        }
+        else
+        {
+            legMesh.SetActive(false);
+            Leg.gameObject.GetComponentInChildren<Renderer>().enabled = true;
+        }
+    }
+
     void LookAround()
     {
         var x = playerInputHandler.LookAroundInput.x;
@@ -172,7 +206,7 @@ public class Player : MonoBehaviour
         if (HasEye)
         {
             // Rotate the player around the Y axis
-            transform.Rotate(Vector3.up * (x * eyeXSensitivity * Time.deltaTime)); 
+            transform.Rotate(Vector3.up * (x * eyeXSensitivity * Time.deltaTime));
         }
         else
         {
@@ -196,7 +230,7 @@ public class Player : MonoBehaviour
         playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         Jumped?.Invoke();
     }
-    
+
     void OnAttachDetachEyePressed()
     {
         if (HasEye)
@@ -213,34 +247,36 @@ public class Player : MonoBehaviour
     {
         LaserStarted?.Invoke();
     }
-    
+
     void OnAttachDetachLeftArmPressed()
     {
         if (!IsArmEnabled)
         {
             return;
         }
-        
+
         if (HasArm)
         {
             Place(Arm);
+            IsArmAttached(false);
         }
         else
         {
             Recall(Arm);
+            IsArmAttached(true);
         }
     }
-    
+
     void OnUseLeftArmPressed()
     {
         if (!IsArmEnabled)
         {
             return;
         }
-        
+
         // TODO: Hold to continue interacting?
         InteractStarted?.Invoke();
-                
+
         if (Arm.IsGrabbing)
         {
             GrabEnded?.Invoke();
@@ -250,21 +286,23 @@ public class Player : MonoBehaviour
             GrabStarted?.Invoke();
         }
     }
-    
+
     void OnAttachDetachLeftLegPressed()
     {
         if (!IsLegEnabled)
         {
             return;
         }
-        
+
         if (HasLeg)
         {
             Place(Leg);
+            IsLegAttached(false);
         }
         else
         {
             Recall(Leg);
+            IsLegAttached(true);
         }
     }
 
@@ -274,20 +312,20 @@ public class Player : MonoBehaviour
         {
             return;
         }
-        
+
         Kicked?.Invoke();
     }
-    
+
     void Place(Part part)
     {
         var lookPosition = Eye.transform.position;
         var lookDirection = Eye.GetLookVector();
-        
+
         Attachment attachment;
         try
         {
             attachment = AttachmentPlacer.TryPlace(new Ray(lookPosition, lookDirection));
-            
+
             // Draw a debug ray in the scene view so we can confirm the placement.
             var lookToAttachment = attachment.transform.position - lookPosition;
             Debug.DrawRay(lookPosition, lookToAttachment, Color.red, 10f);
@@ -298,14 +336,14 @@ public class Player : MonoBehaviour
             return;
         }
         part.Attachment = attachment;
-        
+
         var partTransform = part.transform;
         partTransform.position = attachment.PartContainer.position;
         partTransform.rotation = attachment.PartContainer.rotation;
         partTransform.SetParent(attachment.PartContainer, true);
-        
+
         SetHasPart(part, false);
-        
+
         EmitPartPlaced(part);
     }
 
@@ -316,12 +354,12 @@ public class Player : MonoBehaviour
         partTransform.position = attachment.PartContainer.position;
         partTransform.rotation = attachment.PartContainer.rotation;
         partTransform.SetParent(attachment.transform, true);
-        
+
         SetHasPart(part, true);
-        
+
         Destroy(part.Attachment.gameObject);
         part.Attachment = attachment;
-        
+
         EmitPartRecalled(part);
     }
 
@@ -339,7 +377,7 @@ public class Player : MonoBehaviour
         {
             return LegAttachment;
         }
-        
+
         throw new Exception("What is this part?");
     }
 

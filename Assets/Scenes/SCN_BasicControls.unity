@@ -640,11 +640,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d710251742554bbfab26314c842f8b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsActivated>k__BackingField: 0
+  <Switches>k__BackingField:
+  - {fileID: 1395530165}
+  activateOnStart: 0
   movementDuration: 3
   targetTransform: {fileID: 1737619115}
-  loops: -1
-  ease: 1
-  loopType: 1
   startDelay: 0
   beforeFirstMovementDelay: 3
   beforeSecondMovementDelay: 3
@@ -761,6 +762,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1205267484}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1395530165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2598358629029508049, guid: 4fc5bb74c34ebfd499682df1a36d33a8,
+    type: 3}
+  m_PrefabInstance: {fileID: 5526141058812916147}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f384c178dd8b0164eaa8dcbbbf3f2980, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1559610351
 GameObject:
   m_ObjectHideFlags: 0

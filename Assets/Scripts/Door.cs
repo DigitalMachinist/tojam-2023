@@ -31,6 +31,7 @@ public class Door : MonoBehaviour
     {
         var wasOpen = IsOpen;
         IsOpen = Switches.All(x => x.IsOn);
+        Debug.Log($"Door is open: {IsOpen}");
         if (!wasOpen && IsOpen)
         {
             Barrier.gameObject.SetActive(false);

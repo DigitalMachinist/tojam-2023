@@ -204,7 +204,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""2D Vector (Gamepad)"",
                     ""id"": ""ab32695c-9368-4eac-bddd-77fff636c577"",
-                    ""path"": ""2DVector"",
+                    ""path"": ""2DVector(mode=2)"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

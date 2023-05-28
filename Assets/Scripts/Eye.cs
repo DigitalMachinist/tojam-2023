@@ -15,14 +15,10 @@ public class Eye : Part
     [FormerlySerializedAs("virtualCamera")]
     [Header("Attached Camera Settings")] 
     [SerializeField] CinemachineVirtualCamera attachedCamera;
-    [SerializeField] float xSensitivity = 300f;
-    [SerializeField] float ySensitivity = 300f;
-    
+
     [Header("Detached Camera Settings")]
     [SerializeField] CinemachineVirtualCamera detachedCamera;
-    [SerializeField] float detachedXSensitivity = 300f;
-    [SerializeField] float detachedYSensitivity = 300f;
-    
+
     public Transform ActiveCamera => attachedCamera.enabled ? attachedCamera.transform : detachedCamera.transform;
     
     void Start()

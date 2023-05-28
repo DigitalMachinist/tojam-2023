@@ -56,6 +56,8 @@ public class Player : MonoBehaviour
     [Header("Eye Camera")] 
     [SerializeField] float minEyeAngle = -90f;
     [SerializeField] private float maxEyeAngle = 90f;
+    [SerializeField] float minXEyeAngle = -60f;
+    [SerializeField] float maxXEyeAngle = 60f;
     [SerializeField] float eyeXSensitivity = 100f;
     [SerializeField] float eyeYSensitivity = 100f;
 
@@ -63,8 +65,9 @@ public class Player : MonoBehaviour
     private Rigidbody playerRigidbody;
     PlayerInputHandler playerInputHandler;
     private bool isGrounded;
+    float rotX;
     float rotY;
-    
+
     public bool HasArm { get; set; }
     public bool HasEye { get; set; }
     public bool HasLeg { get; set; }
@@ -161,19 +164,23 @@ public class Player : MonoBehaviour
     
     void LookAround()
     {
-        if (!HasEye)
-        {
-            return;   
-        }
-            
-        // Use the mouse to look around
-        var mouseX = playerInputHandler.LookAroundInput.x;
-        var mouseY = playerInputHandler.LookAroundInput.y;
-        rotY += mouseY % 360 * eyeYSensitivity * Time.deltaTime;
+        var x = playerInputHandler.LookAroundInput.x;
+        var y = playerInputHandler.LookAroundInput.y;
+        rotX += x % 360 * eyeXSensitivity * Time.deltaTime;
+        rotY += y % 360 * eyeYSensitivity * Time.deltaTime;
 
-        // Rotate the player around the Y axis
-        transform.Rotate(Vector3.up * (mouseX * eyeXSensitivity * Time.deltaTime));
-        
+        if (HasEye)
+        {
+            // Rotate the player around the Y axis
+            transform.Rotate(Vector3.up * (x * eyeXSensitivity * Time.deltaTime)); 
+        }
+        else
+        {
+            // Rotate the Eye around the Y axis
+            rotX = Mathf.Clamp(rotX, minXEyeAngle, maxXEyeAngle);
+            Eye.transform.localRotation = Quaternion.Euler(0f, rotX, 0f);
+        }
+
         // Rotate the Eye's active camera to look up and down, but clamp it so it can't look too far up or down
         rotY = Mathf.Clamp(rotY, minEyeAngle, maxEyeAngle);
         Eye.ActiveCamera.localRotation = Quaternion.Euler(-rotY, 0f, 0f);

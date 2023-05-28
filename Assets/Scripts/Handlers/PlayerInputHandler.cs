@@ -6,6 +6,9 @@ namespace Handlers
 {
     public class PlayerInputHandler : MonoBehaviour
     {
+        [SerializeField] float mouseMultiplier = 0.4f;
+        [SerializeField] float gamepadMultiplier = 1f;
+        
         public Vector2 WalkInput { get; private set; }
         public Vector2 LookAroundInput { get; private set; }
         
@@ -55,7 +58,8 @@ namespace Handlers
             WalkInput = Walk.ReadValue<Vector2>();
             
             // If there's a device connected, use the look around input from the device, otherwise use the mouse
-            LookAroundInput = LookAround.ReadValue<Vector2>();
+            var multiplier = Gamepad.current != null ? gamepadMultiplier : mouseMultiplier;
+            LookAroundInput = LookAround.ReadValue<Vector2>() * multiplier;
             Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput}");
         }
 

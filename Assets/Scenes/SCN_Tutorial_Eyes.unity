@@ -1399,7 +1399,7 @@ PrefabInstance:
     - target: {fileID: 64515181103858382, guid: 77f5dcdcf285a804d99abc356ad1b8c7,
         type: 3}
       propertyPath: m_Convex
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77f5dcdcf285a804d99abc356ad1b8c7, type: 3}
@@ -3774,7 +3774,6 @@ GameObject:
   - component: {fileID: 537178370}
   - component: {fileID: 537178369}
   - component: {fileID: 537178368}
-  - component: {fileID: 537178367}
   m_Layer: 0
   m_Name: PortalDoor
   m_TagString: Untagged
@@ -3782,20 +3781,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &537178367
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537178366}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &537178368
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13724,8 +13709,8 @@ GameObject:
   - component: {fileID: 1919971911}
   - component: {fileID: 1919971915}
   - component: {fileID: 1919971914}
-  - component: {fileID: 1919971913}
   - component: {fileID: 1919971912}
+  - component: {fileID: 1919971916}
   m_Layer: 0
   m_Name: PortalDoor (1)
   m_TagString: Untagged
@@ -13760,21 +13745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc105adefb941943a51fa25f8da4fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: 
---- !u!64 &1919971913
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919971910}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  SceneName: SCN_Tutorial_Arm
 --- !u!23 &1919971914
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13825,6 +13796,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1919971910}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1919971916
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919971910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000001, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: -0.0000009536743, z: 0}
 --- !u!1 &1930666426
 GameObject:
   m_ObjectHideFlags: 0

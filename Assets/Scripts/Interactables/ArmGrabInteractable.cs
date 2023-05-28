@@ -6,10 +6,9 @@ namespace Interactables
     {
         public Transform Transform { get; private set; }
         public Renderer Renderer { get; private set;  }
+        public Rigidbody Rigidbody { get; private set;  }
         
         Transform originalParent;
-        Vector3 originalPosition;
-        Quaternion originalRotation;
         
         public void Interact() { }
         
@@ -25,7 +24,9 @@ namespace Interactables
             Transform.SetParent(grabTransform);
             Transform.localPosition = Vector3.zero;
             Transform.localRotation = Quaternion.identity;
-            
+            Rigidbody.isKinematic = true;
+            Rigidbody.useGravity = false;
+
             return this;
         }
         
@@ -33,17 +34,16 @@ namespace Interactables
         {
             Debug.LogWarning($"{gameObject.name} released by arm!");
             Transform.SetParent(originalParent);
-            Transform.localPosition = originalPosition;
-            Transform.localRotation = originalRotation;
+            Rigidbody.isKinematic = false;
+            Rigidbody.useGravity = true;
         }
         
         void Start()
         {
             Transform = transform;
             Renderer = GetComponentInChildren<Renderer>();
+            Rigidbody = GetComponentInChildren<Rigidbody>();
             originalParent = Transform.parent;
-            originalPosition = Transform.localPosition;
-            originalRotation = Transform.localRotation;
         }
     }
 }

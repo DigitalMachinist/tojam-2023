@@ -12,6 +12,9 @@ namespace Interactables
         private Material _switchMaterial;
         private Material _doorLightMaterial;
 
+        Color _onColor = Color.green * 2;
+        Color _offColor = Color.red * 2;
+
         public bool IsOn { get; private set; }
 
         void Start()
@@ -34,9 +37,9 @@ namespace Interactables
             IsOn = true;
             Activated?.Invoke();
             if(_switchMaterial != null)
-            _switchMaterial.SetColor("_EmissionColor", Color.green);
+            _switchMaterial.SetColor("_EmissionColor", _onColor);
             if(_doorLightMaterial != null)
-            _doorLightMaterial.SetColor("_EmissionColor", Color.green);
+            _doorLightMaterial.SetColor("_EmissionColor", _onColor);
         }
 
         public void Deactivate()
@@ -44,9 +47,9 @@ namespace Interactables
             IsOn = false;
             Deactivated?.Invoke();
             if(_switchMaterial != null)
-            _switchMaterial.SetColor("_EmissionColor", Color.red);
+            _switchMaterial.SetColor("_EmissionColor", _offColor);
             if(_doorLightMaterial != null)
-            _doorLightMaterial.SetColor("_EmissionColor", Color.red);
+            _doorLightMaterial.SetColor("_EmissionColor", _offColor);
         }
     }
 }

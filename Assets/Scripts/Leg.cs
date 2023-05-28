@@ -1,16 +1,18 @@
 ﻿using System.Linq;
 using Interactables;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Leg : Part
 {
+    [FormerlySerializedAs("kickForce")]
     [Header("Kicking Settings")]
-    [SerializeField] float kickForce = 5f;
+    [SerializeField] float kickForceForward = 10f;
+    [SerializeField] float kickForceUpward = 2f;
     [SerializeField] float minKickRange = 0.1f;
     [SerializeField] float maxKickRange = 3f;
     [SerializeField] LayerMask kickLayerMask;
     [SerializeField] LayerMask kickVisibilityLayerMask;
-    [SerializeField] Transform kickTransform;
     
     void Start()
     {
@@ -34,16 +36,20 @@ public class Leg : Part
         // Kick The closest one
         if (interactablesInRange is {Count: <= 0})
         {
-            Debug.LogWarning("[LEG] No LegKickables in range!");
+            Debug.LogWarning("[LEG] No kickables in range!");
             return;
         }
+
+        var kickFromPosition = GetComponentInParent<Player>() == null
+            ? Player.transform.position
+            : Attachment.transform.position;
         
         var closestInteractable = interactablesInRange
-            .OrderBy(interactable => Vector3.Distance(interactable.transform.position, kickTransform.position))
+            .OrderBy(interactable => Vector3.Distance(interactable.transform.position, kickFromPosition))
             .First();
 
         var fromLegToInteractable = closestInteractable.transform.position - transform.position;
-        closestInteractable.Kick(fromLegToInteractable.normalized * kickForce);
+        closestInteractable.Kick(fromLegToInteractable.normalized * kickForceForward + Vector3.up * kickForceUpward);
     }
 
     void OnLegPlaced()

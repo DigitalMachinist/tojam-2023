@@ -23,8 +23,7 @@ namespace Activatables
         [SerializeField] private float startDelay = 0f;
         [SerializeField] private float beforeFirstMovementDelay = 0f;
         [SerializeField] private float beforeSecondMovementDelay = 0f;
-
-        private Rigidbody platformRigidbody;
+        
         private Vector3 startPosition;
         private Transform currentTargetTransform;
         
@@ -32,9 +31,22 @@ namespace Activatables
         
         public void SetTargetTransform(Transform target) => currentTargetTransform = target;
 
+        public void OnActivated()
+        {
+            movementSequence.Play();
+            IsActivated = true;
+            Activated?.Invoke();
+        }
+
+        public void OnDeactivated()
+        {
+            movementSequence.Pause();
+            IsActivated = false;
+            Deactivated?.Invoke();
+        }
+        
         private void Start()
         {
-            platformRigidbody = GetComponent<Rigidbody>();
             startPosition = transform.position;
             
             if (targetTransform)
@@ -66,20 +78,6 @@ namespace Activatables
             {
                 OnDeactivated();
             }
-        }
-
-        public void OnActivated()
-        {
-            movementSequence.Play();
-            IsActivated = true;
-            Activated?.Invoke();
-        }
-
-        public void OnDeactivated()
-        {
-            movementSequence.Pause();
-            IsActivated = false;
-            Deactivated?.Invoke();
         }
     }
 }

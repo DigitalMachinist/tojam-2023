@@ -7,7 +7,7 @@ namespace Interactables
     {
         void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Box"))
+            if (!other.CompareTag("Box") && !other.CompareTag("Player"))
             {
                 return;
             }
@@ -17,7 +17,7 @@ namespace Interactables
         
         void OnTriggerExit(Collider other)
         {
-            if (!other.CompareTag("Box"))
+            if (!other.CompareTag("Box") && !other.CompareTag("Player"))
             {
                 return;
             }

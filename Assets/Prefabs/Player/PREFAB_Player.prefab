@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 5935271255256451361}
   - component: {fileID: 8710162558580081292}
   - component: {fileID: 3591197269910857181}
+  - component: {fileID: 8824789644280296159}
   m_Layer: 0
   m_Name: PREFAB_Player
   m_TagString: Untagged
@@ -222,6 +223,7 @@ MonoBehaviour:
   IsArmEnabled: 1
   IsEyeEnabled: 1
   IsLegEnabled: 1
+  playerInputHandler: {fileID: 0}
   moveSpeed: 10
   jumpForce: 5
   groundLayer:
@@ -232,6 +234,18 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 6758250530922299316}
   groundCheckRadius: 0.25
+--- !u!114 &8824789644280296159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976097150345699713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9bb5ed75169448892395cf37353cebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8456832669922111276
 GameObject:
   m_ObjectHideFlags: 0

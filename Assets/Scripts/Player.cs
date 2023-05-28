@@ -1,4 +1,5 @@
 using System;
+using Handlers;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -43,7 +44,7 @@ public class Player : MonoBehaviour
     public bool IsArmEnabled = true;
     public bool IsEyeEnabled = true;
     public bool IsLegEnabled = true;
-        
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 5f;
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
 
     private Transform playerTransform;
     private Rigidbody playerRigidbody;
+    PlayerInputHandler playerInputHandler;
     private bool isGrounded;
     
     public bool HasArm { get; set; }
@@ -86,89 +88,33 @@ public class Player : MonoBehaviour
             Leg = FindObjectOfType<Leg>();
             HasLeg = true;
         }
+        
+        playerInputHandler = GetComponent<PlayerInputHandler>();
+        playerInputHandler.JumpPressed += OnJumpPressed;
+        
+        playerInputHandler.AttachDetachEyePressed += OnAttachDetachEyePressed;
+        playerInputHandler.UseEyePressed += OnUseEyePressed;
+        
+        playerInputHandler.AttachDetachLeftArmPressed += OnAttachDetachLeftArmPressed;
+        playerInputHandler.UseLeftArmPressed += OnUseLeftArmPressed;
+        
+        // TODO: Uncomment these if we implement the right arm.
+        // playerInputHandler.AttachDetachRightArmPressed += OnAttachDetachRightArmPressed;
+        // playerInputHandler.UseRightArmPressed += OnUseRightArmPressed;
+        
+        playerInputHandler.AttachDetachLeftLegPressed += OnAttachDetachLeftLegPressed;
+        playerInputHandler.UseLeftLegPressed += OnUseLeftLegPressed;
+        
+        // TODO: Uncomment these if we implement the right leg.
+        // playerInputHandler.AttachDetachRightLegPressed += OnAttachDetachRightLegPressed;
+        // playerInputHandler.UseRightLegPressed += OnUseRightLegPressed;
     }
-    
+
     void Update()
     {
         CheckForGround();
         CheckForPlatform();
         Move();
-        
-        // TODO: Replace this with the actual input manager stuff.
-        if (IsArmEnabled)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                if (HasArm)
-                {
-                    Place(Arm);
-                }
-                else
-                {
-                    Recall(Arm);
-                }
-            }
-    
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                // TODO: Hold to continue interacting?
-                InteractStarted?.Invoke();
-                
-                if (Arm.IsGrabbing)
-                {
-                    GrabEnded?.Invoke();
-                }
-                else
-                {
-                    GrabStarted?.Invoke();
-                }
-            }
-        }
-
-        if (IsLegEnabled)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                if (HasLeg)
-                {
-                    Place(Leg);
-                }
-                else
-                {
-                    Recall(Leg);
-                }
-            }
-
-            if (HasLeg && isGrounded && Input.GetKeyDown(KeyCode.Space))
-            {
-                playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                Jumped?.Invoke();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                Kicked?.Invoke();
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (HasEye)
-            {
-                Place(Eye);
-            }
-            else
-            {
-                Recall(Eye);
-            }
-        }
-        
-        if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0)) // Should this be mouse button?
-        {
-            LaserStarted?.Invoke();
-        }
-
-
         LookAround();
     }
 
@@ -201,13 +147,116 @@ public class Player : MonoBehaviour
     void Move()
     {
         // TODO: Handle movement differently when the eye is attached to a surface?
-            
-        var x = Input.GetAxis("Horizontal");
-        var z = Input.GetAxis("Vertical");
-
-        var movement = new Vector3(x, 0, z);
+        var movement = new Vector3(playerInputHandler.WalkInput.x, 0, playerInputHandler.WalkInput.y);
         playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
         playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
+    }
+    
+    void LookAround()
+    {
+        if (!HasEye)
+        {
+            return;   
+        }
+            
+        // Use the mouse to look around
+        var mouseX = playerInputHandler.LookAroundInput.x;
+        // TODO: mouseY = playerInputHandler.LookAroundInput.y;
+
+        // Rotate the player around the Y axis
+        transform.Rotate(Vector3.up * (mouseX * 100f * Time.deltaTime));
+    }
+
+    void OnJumpPressed()
+    {
+        if (!IsLegEnabled || !HasLeg || !isGrounded)
+        {
+            return;
+        }
+
+        playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        Jumped?.Invoke();
+    }
+    
+    void OnAttachDetachEyePressed()
+    {
+        if (HasEye)
+        {
+            Place(Eye);
+        }
+        else
+        {
+            Recall(Eye);
+        }
+    }
+
+    void OnUseEyePressed()
+    {
+        LaserStarted?.Invoke();
+    }
+    
+    void OnAttachDetachLeftArmPressed()
+    {
+        if (!IsArmEnabled)
+        {
+            return;
+        }
+        
+        if (HasArm)
+        {
+            Place(Arm);
+        }
+        else
+        {
+            Recall(Arm);
+        }
+    }
+    
+    void OnUseLeftArmPressed()
+    {
+        if (!IsArmEnabled)
+        {
+            return;
+        }
+        
+        // TODO: Hold to continue interacting?
+        InteractStarted?.Invoke();
+                
+        if (Arm.IsGrabbing)
+        {
+            GrabEnded?.Invoke();
+        }
+        else
+        {
+            GrabStarted?.Invoke();
+        }
+    }
+    
+    void OnAttachDetachLeftLegPressed()
+    {
+        if (!IsLegEnabled)
+        {
+            return;
+        }
+        
+        if (HasLeg)
+        {
+            Place(Leg);
+        }
+        else
+        {
+            Recall(Leg);
+        }
+    }
+
+    void OnUseLeftLegPressed()
+    {
+        if (!IsLegEnabled || !HasLeg)
+        {
+            return;
+        }
+        
+        Kicked?.Invoke();
     }
     
     void Place(Part part)
@@ -333,19 +382,5 @@ public class Player : MonoBehaviour
         {
             throw new Exception("What is this part?");
         }
-    }
-    
-    void LookAround()
-    {
-        if (!HasEye)
-        {
-             return;   
-        }
-            
-        // Use the mouse to look around
-        var mouseX = Input.GetAxis("Mouse X");
-
-        // Rotate the player around the Y axis
-        transform.Rotate(Vector3.up * (mouseX * 100f * Time.deltaTime));
     }
 }

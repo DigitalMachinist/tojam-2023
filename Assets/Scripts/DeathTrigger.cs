@@ -5,7 +5,6 @@ public class DeathTrigger : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("aaa");
         var killable = other.GetComponent<Killable>();
         if (killable == null)
         {

@@ -12,7 +12,6 @@ namespace Interactables
                 return;
             }
             
-            Debug.Log("aaa");
             Activate();
         }
         
@@ -23,7 +22,6 @@ namespace Interactables
                 return;
             }
             
-            Debug.Log("bbb");
             Deactivate();
         }
     }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5200070273507913661}
   - component: {fileID: 3403965925399785852}
   m_Layer: 10
-  m_Name: Death Trigger
+  m_Name: PREFAB_DeathTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

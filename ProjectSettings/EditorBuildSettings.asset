@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SCN_Tutorial_Eyes.unity
     guid: 293b07b7ef7b35245bd002cdc9c96b7e
+  - enabled: 1
+    path: Assets/Scenes/SCN_Tutorial_Arm.unity
+    guid: 24b0c2e323943ec44bba2340a2b749f3
+  - enabled: 1
+    path: Assets/Scenes/SCN_Puzzle_ArmGrab.unity
+    guid: 1b38004c0ec82754ea1f9e0e7e994748
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 7a1aa094c292aa543a295e67b4b1bff7,
       type: 2}

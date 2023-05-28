@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace Handlers
 {
@@ -52,19 +53,33 @@ namespace Handlers
         {
             playerActions?.PlayerActionMap.Enable();
         }
-
+        
         void Update()
         {
             WalkInput = Walk.ReadValue<Vector2>();
             
-            // If there's a device connected, use the look around input from the device, otherwise use the mouse
-            var multiplier = Gamepad.current != null ? gamepadMultiplier : mouseMultiplier;
-            LookAroundInput = LookAround.ReadValue<Vector2>() * multiplier;
-            Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput}");
+            var activeDevice = LookAround.activeControl?.device;
+            if (activeDevice != null)
+            {
+                if (activeDevice == Mouse.current)
+                {
+                    LookAroundInput = Mouse.current.delta.ReadValue() * mouseMultiplier;
+                    Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput} (x{mouseMultiplier}))");
+                }
+                else if (activeDevice == Gamepad.current)
+                {
+                    LookAroundInput = LookAround.ReadValue<Vector2>() * gamepadMultiplier;
+                    Debug.Log($"[PlayerInputHandler] LookAroundInput: {LookAroundInput} (x{gamepadMultiplier}))");
+                }
+            }
+            else
+            {
+                LookAroundInput = Vector2.zero;
+            }
         }
 
-        // void OnEnable() => playerActions?.PlayerActionMap.Enable();
-        // void OnDisable() => playerActions?.PlayerActionMap.Disable();
+        void OnEnable() => playerActions?.PlayerActionMap.Enable();
+        void OnDisable() => playerActions?.PlayerActionMap.Disable();
 
         void OnJump(InputAction.CallbackContext context)
         {

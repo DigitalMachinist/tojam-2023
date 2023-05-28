@@ -387,6 +387,10 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 6758250530922299316}
   groundCheckRadius: 0.25
+  minEyeAngle: -90
+  maxEyeAngle: 90
+  eyeXSensitivity: 100
+  eyeYSensitivity: 100
 --- !u!114 &2248090897164112178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bb5ed75169448892395cf37353cebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseMultiplier: 0.2
+  gamepadMultiplier: 1.5
 --- !u!136 &1413588008
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -2176,7 +2176,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: f589d6b454167964b9dcbe3f79f2f16d,
+      objectReference: {fileID: 13400000, guid: 3068d1394d065e345943f56499ad4594,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5171d5eb12e0f184a8761aa4157f7d00, type: 3}
@@ -2483,7 +2483,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348188052}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3068d1394d065e345943f56499ad4594, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -8580,6 +8580,11 @@ PrefabInstance:
       objectReference: {fileID: 1190269514}
     - target: {fileID: 3591197269910857181, guid: b37c39fc702c3824b82f6d94ea686032,
         type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3591197269910857181, guid: b37c39fc702c3824b82f6d94ea686032,
+        type: 3}
       propertyPath: IsArmEnabled
       value: 0
       objectReference: {fileID: 0}
@@ -10931,7 +10936,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: f589d6b454167964b9dcbe3f79f2f16d,
+      objectReference: {fileID: 13400000, guid: 3068d1394d065e345943f56499ad4594,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5171d5eb12e0f184a8761aa4157f7d00, type: 3}
@@ -11568,7 +11573,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: f589d6b454167964b9dcbe3f79f2f16d,
+      objectReference: {fileID: 13400000, guid: 3068d1394d065e345943f56499ad4594,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5171d5eb12e0f184a8761aa4157f7d00, type: 3}

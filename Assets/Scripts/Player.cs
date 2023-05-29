@@ -180,9 +180,9 @@ public class Player : MonoBehaviour
         // playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
         
         Vector3 movement = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
-        movement = playerTransform.TransformDirection(movement) * moveSpeed;
+        movement = playerTransform.TransformDirection(movement);
 
-        playerRigidbody.AddForce(movement, ForceMode.Acceleration);
+        playerRigidbody.AddForce(movement * moveSpeed, ForceMode.VelocityChange);
     }
 
     void IsArmAttached(bool state)

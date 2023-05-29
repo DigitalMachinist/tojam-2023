@@ -21,18 +21,22 @@ public class AnimationHandler : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Calculate the distance moved since the last frame
+         // Calculate the displacement since the last frame
         Vector3 displacement = transform.position - lastPosition;
 
-        // Calculate the speed based on the distance and the time taken
+        // Calculate the speed based on the magnitude of displacement and the time taken
         speed = displacement.magnitude / Time.deltaTime;
 
         // Update the last position
         lastPosition = transform.position;
-        
+
         animator.SetFloat("Speed", speed);
+
+        // speed = rb.velocity.magnitude;
+        
+        // animator.SetFloat("Speed", speed);
 
     }
 }

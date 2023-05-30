@@ -135,9 +135,13 @@ public class Player : MonoBehaviour
     {
         CheckForGround();
         CheckForPlatform();
-        Move();
+        
         LookAround();
         AdditiveDownForce();
+    }
+    void FixedUpdate()
+    {
+        Move();
     }
     void AdditiveDownForce()
     {

@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
     }
     void AdditiveDownForce()
     {
-        if(!isGrounded) return;
+        if (isGrounded) return;
 
         playerRigidbody.AddForce(Vector3.down * 100f * Time.deltaTime, ForceMode.Acceleration);
     }

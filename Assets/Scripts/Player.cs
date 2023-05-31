@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     [SerializeField] private LayerMask platformLayer;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.1f;
+    [SerializeField] private float additionalGroundingForce = 100f;
 
     [Header("Eye Camera")]
     [SerializeField] float minEyeAngle = -90f;
@@ -137,17 +138,20 @@ public class Player : MonoBehaviour
         CheckForPlatform();
         
         LookAround();
-        AdditiveDownForce();
     }
     void FixedUpdate()
     {
         Move();
+        AdditiveDownForce();
     }
     void AdditiveDownForce()
     {
-        if (isGrounded) return;
+        if (isGrounded || playerRigidbody.velocity.y > 0f)
+        {
+            return;
+        }
 
-        playerRigidbody.AddForce(Vector3.down * 100f * Time.deltaTime, ForceMode.Acceleration);
+        playerRigidbody.AddForce(Vector3.down * additionalGroundingForce * Time.fixedDeltaTime, ForceMode.Acceleration);
     }
 
     void CheckForGround()

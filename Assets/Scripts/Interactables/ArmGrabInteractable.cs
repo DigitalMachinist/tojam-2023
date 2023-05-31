@@ -24,7 +24,9 @@ namespace Interactables
             Transform.SetParent(grabTransform);
             Transform.localPosition = Vector3.zero;
             Transform.localRotation = Quaternion.identity;
+            
             Rigidbody.isKinematic = true;
+            GetComponent<Collider>().isTrigger = true;
             Rigidbody.useGravity = false;
 
             return this;
@@ -35,6 +37,7 @@ namespace Interactables
             Debug.LogWarning($"{gameObject.name} released by arm!");
             Transform.SetParent(originalParent);
             Rigidbody.isKinematic = false;
+            GetComponent<Collider>().isTrigger = false;
             Rigidbody.useGravity = true;
         }
         

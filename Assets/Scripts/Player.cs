@@ -135,8 +135,19 @@ public class Player : MonoBehaviour
     {
         CheckForGround();
         CheckForPlatform();
-        Move();
+        
         LookAround();
+        AdditiveDownForce();
+    }
+    void FixedUpdate()
+    {
+        Move();
+    }
+    void AdditiveDownForce()
+    {
+        if (isGrounded) return;
+
+        playerRigidbody.AddForce(Vector3.down * 100f * Time.deltaTime, ForceMode.Acceleration);
     }
 
     void CheckForGround()
@@ -168,9 +179,14 @@ public class Player : MonoBehaviour
     void Move()
     {
         // TODO: Handle movement differently when the eye is attached to a surface?
-        var movement = new Vector3(playerInputHandler.WalkInput.x, 0, playerInputHandler.WalkInput.y);
-        playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
-        playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
+        // var movement = new Vector3(playerInputHandler.WalkInput.x, 0, playerInputHandler.WalkInput.y);
+        // playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
+        // playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
+        
+        Vector3 movement = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
+        movement = playerTransform.TransformDirection(movement);
+
+        playerRigidbody.AddForce(movement * moveSpeed, ForceMode.VelocityChange);
     }
 
     void IsArmAttached(bool state)
@@ -233,7 +249,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.VelocityChange);
         Jumped?.Invoke();
     }
 

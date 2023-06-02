@@ -36,20 +36,20 @@ namespace Interactables
         {
             IsOn = true;
             Activated?.Invoke();
-            if(_switchMaterial != null)
-            _switchMaterial.SetColor("_EmissionColor", _onColor);
-            if(_doorLightMaterial != null)
-            _doorLightMaterial.SetColor("_EmissionColor", _onColor);
+            // if(_switchMaterial != null)
+            // _switchMaterial.SetColor("_EmissionColor", _onColor);
+            // if(_doorLightMaterial != null)
+            // _doorLightMaterial.SetColor("_EmissionColor", _onColor);
         }
 
         public void Deactivate()
         {
             IsOn = false;
             Deactivated?.Invoke();
-            if(_switchMaterial != null)
-            _switchMaterial.SetColor("_EmissionColor", _offColor);
-            if(_doorLightMaterial != null)
-            _doorLightMaterial.SetColor("_EmissionColor", _offColor);
+            // if(_switchMaterial != null)
+            // _switchMaterial.SetColor("_EmissionColor", _offColor);
+            // if(_doorLightMaterial != null)
+            // _doorLightMaterial.SetColor("_EmissionColor", _offColor);
         }
     }
 }

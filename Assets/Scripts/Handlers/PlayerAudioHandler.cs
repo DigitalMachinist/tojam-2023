@@ -26,6 +26,11 @@ namespace Handlers
         [SerializeField] AudioSource moved;
         [SerializeField] AudioSource rotated;
         [SerializeField] AudioSource spawned;
+        [SerializeField] AudioSource doorLightActivated;
+        [SerializeField] AudioSource doorOpened;
+        [SerializeField] AudioSource doorClosed;
+
+        private Door[] doors;
 
         void Start()
         {
@@ -50,6 +55,14 @@ namespace Handlers
             player.Moved += OnMoved;
             player.Rotated += OnRotated;
             player.Spawned += OnSpawned;
+
+            doors = FindObjectsOfType<Door>();
+            foreach (Door door in doors)
+            {
+                door.LightActivated += OnDoorLightActivated;
+                door.Activated += OnDoorOpened;
+                door.Deactivated += OnDoorClosed;
+            }
         }
         
         void OnDestroy()
@@ -75,6 +88,13 @@ namespace Handlers
             player.Moved -= OnMoved;
             player.Rotated -= OnRotated;
             player.Spawned -= OnSpawned;
+            
+            foreach (Door door in doors)
+            {
+                door.LightActivated -= OnDoorLightActivated;
+                door.Activated -= OnDoorOpened;
+                door.Deactivated -= OnDoorClosed;
+            }
         }
 
         void OnArmEnabled()
@@ -180,6 +200,36 @@ namespace Handlers
         void OnSpawned()
         {
             spawned.Play();
+        }
+
+        void OnDoorLightActivated()
+        {
+            if (doorLightActivated == null)
+            {
+                return;
+            }
+            
+            doorLightActivated.Play();
+        }
+
+        void OnDoorOpened()
+        {
+            if (doorOpened == null)
+            {
+                return;
+            }
+            
+            doorOpened.Play();
+        }
+
+        void OnDoorClosed()
+        {
+            if (doorClosed == null)
+            {
+                return;
+            }
+            
+            doorClosed.Play();
         }
     }
 }

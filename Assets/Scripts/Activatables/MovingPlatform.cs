@@ -14,6 +14,11 @@ namespace Activatables
         [field: SerializeField] public bool IsActivated { get; private set; }
         [field: SerializeField] public Switch[] Switches { get; private set; }
 
+        [Header("Indicator Lights")]
+        public Renderer Light;
+        public Color DisabledLightColour = Color.red;
+        public Color EnabledLightColour = Color.green;
+        
         [Header("Movement Settings")] 
         [SerializeField] bool activateOnStart;
         [SerializeField] private float movementDuration = 3f;
@@ -35,6 +40,10 @@ namespace Activatables
         {
             movementSequence.Play();
             IsActivated = true;
+            if (Light != null)
+            {
+                Light.material.SetColor("_EmissionColor", EnabledLightColour);
+            }
             Activated?.Invoke();
         }
 
@@ -42,6 +51,10 @@ namespace Activatables
         {
             movementSequence.Pause();
             IsActivated = false;
+            if (Light != null)
+            {
+                Light.material.SetColor("_EmissionColor", EnabledLightColour);
+            }
             Deactivated?.Invoke();
         }
         

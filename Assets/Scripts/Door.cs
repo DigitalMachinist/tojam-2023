@@ -1,21 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Activatables;
+using Cinemachine;
 using Interactables;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IActivatable
 {
-    public event Action Opened;
-    public event Action Closed;
+    public event Action LightActivated;
+    public event Action Activated;
+    public event Action Deactivated;
 
     public Collider Barrier;
-    
+    public CinemachineVirtualCamera VCam;
+
     [Header("Indicator Lights")]
-    public Color DisabledLightColour = Color.green;
-    public Color EnabledLightColour = Color.red;
-    public float EnableDelaySeconds = 1f;
+    public Color DisabledLightColour = Color.red;
+    public Color EnabledLightColour = Color.green;
+    public float DelayBeforeSeconds = 1f;
+    public float DelayAfterSeconds = 2f;
     public Transform Layout1Parent;
     public List<Renderer> Layout1Lights;
     public Transform Layout2Parent;
@@ -25,49 +30,135 @@ public class Door : MonoBehaviour
     public Transform Layout4Parent;
     public List<Renderer> Layout4Lights;
     
-    [Header("Interactive Elements")]
-    public List<Switch> Switches;
+    [field: SerializeField] public Switch[] Switches { get; private set; }
     
     public Animator Animator { get; private set; }
-    public bool IsOpen { get; private set; }
+    public bool IsActivated { get; private set; }
+    public bool HasActivated { get; private set; }
 
+    void Awake()
+    {
+        IsActivated = false;
+        Animator = GetComponentInChildren<Animator>();
+        EnableLightLayout();
+    }
+    
     void Start()
     {
-        Animator = GetComponentInChildren<Animator>();
-        
         foreach (var s in Switches)
         {
             s.Activated += OnActivated;
             s.Deactivated += OnDeactivated;
         }
 
-        IsOpen = false;
+        UpdateLights();
         OnActivated();
     }
     
 
-    async void OnActivated()
+    public void OnActivated()
     {
-        var wasOpen = IsOpen;
-        IsOpen = Switches.All(x => x.IsOn);
-        Animator.SetBool("IsOpen", IsOpen);
-        Barrier.gameObject.SetActive(!IsOpen);
-        if (!wasOpen && IsOpen)
+        var wasOpen = IsActivated;
+        IsActivated = Switches.All(x => x.IsOn);
+        if (!wasOpen && IsActivated)
         {
-            Opened?.Invoke();
+            Activate();
         }
-        await new WaitForSeconds()
+        else
+        {
+            UpdateLights();
+            LightActivated?.Invoke();
+        }
     }
 
-    void OnDeactivated()
+    public void OnDeactivated()
     {
-        var wasOpen = IsOpen;
-        IsOpen = false;
-        Animator.SetBool("IsOpen", IsOpen);
-        Barrier.gameObject.SetActive(!IsOpen);
-        if (wasOpen)
+        var wasOpen = IsActivated;
+        IsActivated = false;
+        if (wasOpen && !IsActivated)
         {
-            Closed?.Invoke();
+            Deactivate();
+        }
+        else
+        {
+            UpdateLights();
+        }
+    }
+
+    async void Activate()
+    {
+        Activated?.Invoke();
+        Barrier.gameObject.SetActive(false);
+        if (!HasActivated)
+        {
+            VCam.enabled = true;
+            await new WaitForSeconds(DelayBeforeSeconds);
+        }
+        UpdateLights();
+        LightActivated?.Invoke();
+        Animator.SetBool("IsOpen", true);
+        if (!HasActivated)
+        {
+            await new WaitForSeconds(DelayAfterSeconds);
+            VCam.enabled = false;
+        }
+        HasActivated = true;
+    }
+
+    async void Deactivate()
+    {
+        Deactivated?.Invoke();
+        Animator.SetBool("IsOpen", false);
+        Barrier.gameObject.SetActive(true);
+        UpdateLights();
+    }
+
+    void UpdateLights()
+    {
+        var lights = GetLightLayout();
+        for (var i = 0; i < Switches.Length; i++)
+        {
+            lights[i].material.SetColor("_EmissionColor", Switches[i].IsOn ? EnabledLightColour : DisabledLightColour);
+        }
+    }
+
+    List<Renderer> GetLightLayout()
+    {
+        switch (Switches.Length)
+        {
+            case 0: throw new Exception("Did you forget some switches up to this door?");
+            case 1: return Layout1Lights;
+            case 2: return Layout2Lights;
+            case 3: return Layout3Lights;
+            case 4: return Layout4Lights;
+            default: throw new Exception("That's TOO MANY SWITCHES!!!");
+        }
+    }
+
+    void EnableLightLayout()
+    {
+        Layout1Parent.gameObject.SetActive(false);
+        Layout2Parent.gameObject.SetActive(false);
+        Layout3Parent.gameObject.SetActive(false);
+        Layout4Parent.gameObject.SetActive(false);
+        switch (Switches.Length)
+        {
+            case 0: 
+                throw new Exception("Did you forget some switches up to this door?");
+            case 1: 
+                Layout1Parent.gameObject.SetActive(true);
+                break;
+            case 2:
+                Layout2Parent.gameObject.SetActive(true);
+                break;
+            case 3: 
+                Layout3Parent.gameObject.SetActive(true);
+                break;
+            case 4:
+                Layout4Parent.gameObject.SetActive(true);
+                break;
+            default:
+                throw new Exception("That's TOO MANY SWITCHES!!!");
         }
     }
 }

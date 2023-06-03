@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 
 namespace Handlers
 {
@@ -24,6 +23,7 @@ namespace Handlers
         public event Action UseLeftLegPressed;
         public event Action AttachDetachRightLegPressed;
         public event Action UseRightLegPressed;
+        public event Action PausePressed;
 
         InputAction Walk { get; set; }
         InputAction LookAround { get; set; }
@@ -47,12 +47,10 @@ namespace Handlers
             playerActions.PlayerActionMap.UseLeftLeg.performed += OnUseLeftLeg;
             playerActions.PlayerActionMap.AttachDetachRightLeg.performed += OnAttachDetachRightLeg;
             playerActions.PlayerActionMap.UseRightLeg.performed += OnUseRightLeg;
+            playerActions.PlayerActionMap.Pause.performed += OnPausePressed;
         }
 
-        void Start()
-        {
-            playerActions?.PlayerActionMap.Enable();
-        }
+        void Start() => SetInputEnabled(true);
         
         void Update()
         {
@@ -76,8 +74,8 @@ namespace Handlers
             }
         }
 
-        void OnEnable() => playerActions?.PlayerActionMap.Enable();
-        void OnDisable() => playerActions?.PlayerActionMap.Disable();
+        void OnEnable() => SetInputEnabled(true);
+        void OnDisable() => SetInputEnabled(false);
 
         void OnJump(InputAction.CallbackContext context)
         {
@@ -143,6 +141,24 @@ namespace Handlers
         {
             Debug.Log("[PlayerInputHandler] UseRightLeg");
             UseRightLegPressed?.Invoke();
+        }
+        
+        void OnPausePressed(InputAction.CallbackContext context)
+        {
+            Debug.Log("[PlayerInputHandler] Pause pressed");
+            PausePressed?.Invoke();
+        }
+        
+        void SetInputEnabled(bool isEnabled)
+        {
+            if (isEnabled)
+            {
+                playerActions?.Enable();
+            }
+            else
+            {
+                playerActions?.Disable();
+            }
         }
     }
 }

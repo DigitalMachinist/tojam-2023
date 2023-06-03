@@ -143,6 +143,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""b0705e4d-50b4-4321-9752-99b0498aad34"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -607,6 +616,39 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""LookAround"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc6f32eb-8099-486d-bbd1-6fae8043bb92"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bf1fb5ed-2d15-468a-8e7f-36e621affc3a"",
+                    ""path"": ""<DualShockGamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""899fe8ca-f119-45c3-963d-39c0e8bcce2e"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -628,6 +670,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_PlayerActionMap_UseLeftLeg = m_PlayerActionMap.FindAction("UseLeftLeg", throwIfNotFound: true);
         m_PlayerActionMap_AttachDetachRightLeg = m_PlayerActionMap.FindAction("AttachDetachRightLeg", throwIfNotFound: true);
         m_PlayerActionMap_UseRightLeg = m_PlayerActionMap.FindAction("UseRightLeg", throwIfNotFound: true);
+        m_PlayerActionMap_Pause = m_PlayerActionMap.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -702,6 +745,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActionMap_UseLeftLeg;
     private readonly InputAction m_PlayerActionMap_AttachDetachRightLeg;
     private readonly InputAction m_PlayerActionMap_UseRightLeg;
+    private readonly InputAction m_PlayerActionMap_Pause;
     public struct PlayerActionMapActions
     {
         private @PlayerActions m_Wrapper;
@@ -719,6 +763,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public InputAction @UseLeftLeg => m_Wrapper.m_PlayerActionMap_UseLeftLeg;
         public InputAction @AttachDetachRightLeg => m_Wrapper.m_PlayerActionMap_AttachDetachRightLeg;
         public InputAction @UseRightLeg => m_Wrapper.m_PlayerActionMap_UseRightLeg;
+        public InputAction @Pause => m_Wrapper.m_PlayerActionMap_Pause;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActionMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -767,6 +812,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @UseRightLeg.started += instance.OnUseRightLeg;
             @UseRightLeg.performed += instance.OnUseRightLeg;
             @UseRightLeg.canceled += instance.OnUseRightLeg;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPlayerActionMapActions instance)
@@ -810,6 +858,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @UseRightLeg.started -= instance.OnUseRightLeg;
             @UseRightLeg.performed -= instance.OnUseRightLeg;
             @UseRightLeg.canceled -= instance.OnUseRightLeg;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPlayerActionMapActions instance)
@@ -842,5 +893,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         void OnUseLeftLeg(InputAction.CallbackContext context);
         void OnAttachDetachRightLeg(InputAction.CallbackContext context);
         void OnUseRightLeg(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

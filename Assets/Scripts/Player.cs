@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
     float rotX;
     float rotY;
     bool isPaused;
+    Vector3 latestMovement;
 
     public bool HasArm { get; set; }
     public bool HasEye { get; set; }
@@ -211,15 +212,29 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        // TODO: Handle movement differently when the eye is attached to a surface?
-        // var movement = new Vector3(playerInputHandler.WalkInput.x, 0, playerInputHandler.WalkInput.y);
-        // playerTransform.position += transform.forward * (movement.z * moveSpeed * Time.deltaTime);
-        // playerTransform.position += transform.right * (movement.x * moveSpeed * Time.deltaTime);
+        Vector3 controlDirection = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
+        if (controlDirection.sqrMagnitude == 0)
+        {
+            return;
+        }
         
-        Vector3 movement = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
-        movement = playerTransform.TransformDirection(movement);
+        if (HasEye)
+        {
+            // Attached eye movement is relative to the player's body (also the eye's viewpoint).
+            latestMovement = playerTransform.TransformDirection(controlDirection);
+        }
+        else
+        {
+            // Detached eye player movement is relative to the eye's viewpoint.
+            latestMovement = Camera.main.transform.TransformDirection(controlDirection);
+            latestMovement.y = 0f;
+            latestMovement.Normalize();
+            
+            // For this case, we need to rotate the player's body along with their direction of motion.
+            playerTransform.rotation = Quaternion.LookRotation(latestMovement, Vector3.up);
+        }
 
-        playerRigidbody.AddForce(movement * moveSpeed, ForceMode.VelocityChange);
+        playerRigidbody.AddForce(latestMovement * moveSpeed, ForceMode.VelocityChange);
     }
 
     void IsArmAttached(bool state)

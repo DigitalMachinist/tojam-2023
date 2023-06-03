@@ -73,12 +73,16 @@ public class Eye : Part
         throw new System.NotImplementedException();
     }
 
-    public Vector3 GetLookVector()
+    public CinemachineVirtualCamera GetCurrentVCam()
     {
-        var vcam = attachedCamera.enabled
+        return attachedCamera.enabled
             ? attachedCamera
             : detachedCamera;
+    }
 
+    public Vector3 GetLookVector()
+    {
+        var vcam = GetCurrentVCam();
         return vcam.State.CorrectedOrientation * Vector3.forward;
     }
 }

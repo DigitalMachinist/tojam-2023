@@ -212,21 +212,28 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        Vector3 controlDirection = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
-        if (controlDirection.sqrMagnitude == 0)
-        {
-            return;
-        }
-        
+        Vector3 controlDirection;
         if (HasEye)
         {
+            controlDirection = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
+            if (controlDirection.sqrMagnitude < 0.0001f)
+            {
+                return;
+            }
+            
             // Attached eye movement is relative to the player's body (also the eye's viewpoint).
             latestMovement = playerTransform.TransformDirection(controlDirection);
         }
         else
         {
+            controlDirection = new Vector3(playerInputHandler.WalkInput.x, 0f, playerInputHandler.WalkInput.y);
+            if (controlDirection.sqrMagnitude < 0.0001f)
+            {
+                return;
+            }
+            
             // Detached eye player movement is relative to the eye's viewpoint.
-            latestMovement = Camera.main.transform.TransformDirection(controlDirection);
+            latestMovement = Eye.GetCurrentVCam().State.CorrectedOrientation * controlDirection;
             latestMovement.y = 0f;
             latestMovement.Normalize();
             

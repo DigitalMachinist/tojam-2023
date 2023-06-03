@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: -3169049191696063735}
   m_Layer: 7
   m_Name: PREFAB_LegInteractable
-  m_TagString: Untagged
+  m_TagString: Leg
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +143,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f384c178dd8b0164eaa8dcbbbf3f2980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchRenderer: {fileID: 0}
+  doorLightRenderer: {fileID: 0}
 --- !u!114 &-3169049191696063735
 MonoBehaviour:
   m_ObjectHideFlags: 0

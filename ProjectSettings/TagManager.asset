@@ -7,6 +7,9 @@ TagManager:
   - Attachable
   - Ball
   - Box
+  - Arm
+  - Eye
+  - Leg
   layers:
   - Default
   - TransparentFX

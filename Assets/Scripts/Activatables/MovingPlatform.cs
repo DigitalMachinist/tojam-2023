@@ -53,7 +53,7 @@ namespace Activatables
             IsActivated = false;
             if (Light != null)
             {
-                Light.material.SetColor("_EmissionColor", EnabledLightColour);
+                Light.material.SetColor("_EmissionColor", DisabledLightColour);
             }
             Deactivated?.Invoke();
         }

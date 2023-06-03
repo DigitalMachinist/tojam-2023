@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public event Action<Vector3> Moved;
     public event Action<Vector3> Rotated; // Euler angles
     public event Action Spawned;
+    public event Action<bool> PauseToggled;
 
     public AttachmentPlacer AttachmentPlacer;
 
@@ -69,13 +70,13 @@ public class Player : MonoBehaviour
     public GameObject armMesh;
     public GameObject legMesh;
 
-
     private Transform playerTransform;
     private Rigidbody playerRigidbody;
     PlayerInputHandler playerInputHandler;
     private bool isGrounded;
     float rotX;
     float rotY;
+    bool isPaused;
 
     public bool HasArm { get; set; }
     public bool HasEye { get; set; }
@@ -130,6 +131,34 @@ public class Player : MonoBehaviour
         // TODO: Uncomment these if we implement the right leg.
         // playerInputHandler.AttachDetachRightLegPressed += OnAttachDetachRightLegPressed;
         // playerInputHandler.UseRightLegPressed += OnUseRightLegPressed;
+        
+        // TODO: Handle pause somewhere else?
+        playerInputHandler.PausePressed += OnPausePressed;
+    }
+
+    void OnDestroy()
+    {
+        playerInputHandler.JumpPressed -= OnJumpPressed;
+
+        playerInputHandler.AttachDetachEyePressed -= OnAttachDetachEyePressed;
+        playerInputHandler.UseEyePressed -= OnUseEyePressed;
+
+        playerInputHandler.AttachDetachLeftArmPressed -= OnAttachDetachLeftArmPressed;
+        playerInputHandler.UseLeftArmPressed -= OnUseLeftArmPressed;
+        
+        // TODO: Uncomment these if we implement the right arm.
+        // playerInputHandler.AttachDetachRightArmPressed -= OnAttachDetachRightArmPressed;
+        // playerInputHandler.UseRightArmPressed -= OnUseRightArmPressed;
+
+        playerInputHandler.AttachDetachLeftLegPressed -= OnAttachDetachLeftLegPressed;
+        playerInputHandler.UseLeftLegPressed -= OnUseLeftLegPressed;
+
+        // TODO: Uncomment these if we implement the right leg.
+        // playerInputHandler.AttachDetachRightLegPressed -= OnAttachDetachRightLegPressed;
+        // playerInputHandler.UseRightLegPressed -= OnUseRightLegPressed;
+        
+        // TODO: Handle pause somewhere else?
+        playerInputHandler.PausePressed -= OnPausePressed;
     }
 
     void Update()
@@ -151,7 +180,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        playerRigidbody.AddForce(Vector3.down * additionalGroundingForce * Time.fixedDeltaTime, ForceMode.Acceleration);
+        playerRigidbody.AddForce(Vector3.down * (additionalGroundingForce * Time.fixedDeltaTime), ForceMode.Acceleration);
     }
 
     void CheckForGround()
@@ -336,6 +365,13 @@ public class Player : MonoBehaviour
         }
 
         Kicked?.Invoke();
+    }
+    
+    void OnPausePressed()
+    {
+        isPaused ^= true;
+        enabled = !isPaused;
+        PauseToggled?.Invoke(isPaused);
     }
 
     void Place(Part part)

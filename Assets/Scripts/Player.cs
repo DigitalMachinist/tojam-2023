@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
     float rotY;
     bool isPaused;
     Vector3 latestMovement;
+    Killable killable;
 
     public bool HasArm { get; set; }
     public bool HasEye { get; set; }
@@ -136,6 +137,9 @@ public class Player : MonoBehaviour
         
         // TODO: Handle pause somewhere else?
         playerInputHandler.PausePressed += OnPausePressed;
+
+        killable = GetComponentInChildren<Killable>();
+        killable.Killed += OnKilled;
     }
 
     void OnDestroy()
@@ -161,6 +165,8 @@ public class Player : MonoBehaviour
         
         // TODO: Handle pause somewhere else?
         playerInputHandler.PausePressed -= OnPausePressed;
+        
+        killable.Killed -= OnKilled;
     }
 
     void Update()
@@ -170,11 +176,23 @@ public class Player : MonoBehaviour
         
         LookAround();
     }
+    
     void FixedUpdate()
     {
         Move();
         AdditiveDownForce();
     }
+
+    void OnKilled()
+    {
+        if (!Arm.IsGrabbing)
+        {
+            return;
+        }
+        
+        Arm.Release();
+    }
+    
     void AdditiveDownForce()
     {
         if (isGrounded || playerRigidbody.velocity.y > 0f)

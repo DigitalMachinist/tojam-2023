@@ -106,4 +106,9 @@ public class Arm : Part
     {
         throw new System.NotImplementedException();
     }
+
+    public void Release()
+    {
+        grabbedInteractable.Release();
+    }
 }

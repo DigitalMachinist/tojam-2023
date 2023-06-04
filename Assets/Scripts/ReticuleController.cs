@@ -8,6 +8,7 @@ public class ReticuleController : MonoBehaviour
     public Image Arm;
     public Image Eye;
     public Image Leg;
+    public Image ArmAndLeg;
     public LayerMask LayerMask;
     
     void Update()
@@ -59,14 +60,12 @@ public class ReticuleController : MonoBehaviour
         else if (hitInfo.collider.CompareTag("Box"))
         {
             Debug.Log("Box");
-            Arm.gameObject.SetActive(true);
-            Leg.gameObject.SetActive(true);
+            ArmAndLeg.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Ball"))
         {
             Debug.Log("Ball");
-            Arm.gameObject.SetActive(true);
-            Leg.gameObject.SetActive(true);
+            ArmAndLeg.gameObject.SetActive(true);
         }
         else
         {
@@ -82,5 +81,6 @@ public class ReticuleController : MonoBehaviour
         Arm.gameObject.SetActive(false);
         Eye.gameObject.SetActive(false);
         Leg.gameObject.SetActive(false);
+        ArmAndLeg.gameObject.SetActive(false);
     }
 }

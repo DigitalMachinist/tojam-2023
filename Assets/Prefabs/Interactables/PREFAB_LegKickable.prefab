@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192db830f4954814ad04a4f666fa4a01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Kicked: {fileID: 0}
+  Kicked: {fileID: 4283018030414976742}
   Bounce: {fileID: 7632540462561366510}
 --- !u!114 &7680699573488394620
 MonoBehaviour:

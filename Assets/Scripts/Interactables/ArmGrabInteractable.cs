@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Interactables
 {
@@ -9,6 +10,18 @@ namespace Interactables
         public Rigidbody Rigidbody { get; private set;  }
         
         Transform originalParent;
+        
+        void Start()
+        {
+            Transform = transform;
+            Renderer = GetComponentInChildren<Renderer>();
+            Rigidbody = GetComponentInChildren<Rigidbody>();
+            originalParent = Transform.parent;
+        }
+
+        void OnDestroy()
+        {
+        }
         
         public void Interact() { }
         
@@ -39,14 +52,6 @@ namespace Interactables
             Rigidbody.isKinematic = false;
             GetComponent<Collider>().isTrigger = false;
             Rigidbody.useGravity = true;
-        }
-        
-        void Start()
-        {
-            Transform = transform;
-            Renderer = GetComponentInChildren<Renderer>();
-            Rigidbody = GetComponentInChildren<Rigidbody>();
-            originalParent = Transform.parent;
         }
     }
 }

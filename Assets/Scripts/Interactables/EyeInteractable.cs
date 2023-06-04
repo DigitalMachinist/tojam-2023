@@ -6,6 +6,7 @@ namespace Interactables
     {
         public Transform Transform => transform;
         public Renderer Renderer { get; private set;  }
+        public Switch Switch { get; private set;  }
 
         public void Interact()
         {
@@ -17,24 +18,25 @@ namespace Interactables
             
             Debug.LogWarning("Interacted with eye!");
             
-            if (!TryGetComponent(out Switch switchComponent))
+            if (Switch == null)
             {
                 return;
             }
             
-            if (switchComponent.IsOn)
+            if (Switch.IsOn)
             {
-                switchComponent.Deactivate();
+                Switch.Deactivate();
             }
             else
             {
-                switchComponent.Activate();
+                Switch.Activate();
             }
         }
 
         void Start()
         {
             Renderer = GetComponentInChildren<Renderer>();
+            Switch = GetComponentInChildren<Switch>();
         }
     }
 }

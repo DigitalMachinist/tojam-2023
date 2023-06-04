@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2790237625454383231}
   m_Layer: 0
   m_Name: SM_Buildings_Floor_5x5_01P
-  m_TagString: Untagged
+  m_TagString: Unattachable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2796291149844764160}
   m_Layer: 0
   m_Name: PREFAB_NonAttachableFloor
-  m_TagString: Untagged
+  m_TagString: Unattachable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

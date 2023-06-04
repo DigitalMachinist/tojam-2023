@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public event Action InteractStarted; // Arm
     public event Action Jumped; // Leg
     public event Action Kicked; // Leg
+    public event Action Landed; // Leg
     public event Action LaserEnded; // Eye
     public event Action LaserStarted; // Eye
     public event Action LegEnabled;
@@ -187,7 +188,12 @@ public class Player : MonoBehaviour
     void CheckForGround()
     {
         var groundCheckPosition = groundCheck.position;
+        var wasGrounded = isGrounded;
         isGrounded = Physics.CheckSphere(groundCheckPosition, groundCheckRadius, groundLayer);
+        if (!wasGrounded && isGrounded)
+        {
+            Landed?.Invoke();
+        }
     }
 
     void CheckForPlatform()

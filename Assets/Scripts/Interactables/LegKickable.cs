@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Interactables
 {
     public class LegKickable : MonoBehaviour
     {
+        public AudioSource Bounce;
+        
         public Transform Transform { get; }
         public Renderer Renderer { get; private set; }
         public Rigidbody Rigidbody { get; private set; }
@@ -18,26 +21,18 @@ namespace Interactables
             Rigidbody.AddForce(force, ForceMode.Impulse);
             
             Debug.LogWarning("Kicked by leg!");
-            
-            // if (!TryGetComponent(out Switch switchComponent))
-            // {
-            //     return;
-            // }
-            //
-            // if (switchComponent.IsOn)
-            // {
-            //     switchComponent.Deactivate();
-            // }
-            // else
-            // {
-            //     switchComponent.Activate();
-            // }
         }
         
         void Start()
         {
             Renderer = GetComponentInChildren<Renderer>();
             Rigidbody = GetComponentInChildren<Rigidbody>();
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (!other.collider.CompareTag("Attachable") && !other.collider.CompareTag("Unattachable"))
+            Bounce.Play();
         }
     }
 }

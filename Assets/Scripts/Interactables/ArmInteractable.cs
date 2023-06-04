@@ -6,6 +6,7 @@ namespace Interactables
     {
         public Transform Transform { get; private set; }
         public Renderer Renderer { get; private set; }
+        public Switch Switch { get; private set;  }
 
         public void Interact()
         {
@@ -16,18 +17,18 @@ namespace Interactables
             
             Debug.LogWarning($"{gameObject.name} interacted with arm!");
             
-            if (!TryGetComponent(out Switch switchComponent))
+            if (Switch == null)
             {
                 return;
             }
             
-            if (switchComponent.IsOn)
+            if (Switch.IsOn)
             {
-                switchComponent.Deactivate();
+                Switch.Deactivate();
             }
             else
             {
-                switchComponent.Activate();
+                Switch.Activate();
             }
         }
         
@@ -35,6 +36,7 @@ namespace Interactables
         {
             Transform = transform;
             Renderer = GetComponentInChildren<Renderer>();
+            Switch = GetComponentInChildren<Switch>();
         }
     }
 }

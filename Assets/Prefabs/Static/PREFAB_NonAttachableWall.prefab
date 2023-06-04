@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1330947631056441871}
   m_Layer: 0
   m_Name: PREFAB_NonAttachableWall
-  m_TagString: Untagged
+  m_TagString: Unattachable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 4276790836381258490}
   m_Layer: 0
   m_Name: SM_Buildings_Wall_5x3_01P
-  m_TagString: Untagged
+  m_TagString: Unattachable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

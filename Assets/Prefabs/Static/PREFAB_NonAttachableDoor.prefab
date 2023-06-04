@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2189709427433394853}
   m_Layer: 0
   m_Name: PREFAB_NonAttachableDoor
-  m_TagString: Untagged
+  m_TagString: Unattachable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1978419138126036, guid: fb5fe60765bf4b841bd460907c1f255a, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Unattachable
       objectReference: {fileID: 0}
     - target: {fileID: 1978419138126036, guid: fb5fe60765bf4b841bd460907c1f255a, type: 3}
       propertyPath: m_StaticEditorFlags

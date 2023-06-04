@@ -1,38 +1,33 @@
-﻿using Interactables;
-using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Handlers
 {
     public class MenuAudioHandler : MonoBehaviour
     {
-        [SerializeField] Canvas canvas;
-        
         [SerializeField] AudioSource movedSelection;
         [SerializeField] AudioSource cancelledSelection;
         [SerializeField] AudioSource selected;
 
         private Button[] _buttons;
-        private InputSystemUIInputModule uiInput;
+        private UIMenu_ControllerSupport uiInput;
 
         void Start()
         {
-            uiInput = FindObjectOfType<InputSystemUIInputModule>();
-            uiInput.move.action.performed += OnMoved;
-            uiInput.cancel.action.performed += OnCancelled;
-            uiInput.submit.action.performed += OnSubmitted;
+            uiInput = FindObjectOfType<UIMenu_ControllerSupport>();
+            uiInput.Navigated += OnMoved;
+            uiInput.Cancelled += OnCancelled;
+            uiInput.Submitted += OnSubmitted;
         }
 
         void OnDestroy()
         {
-            uiInput.move.action.performed -= OnMoved;
-            uiInput.cancel.action.performed -= OnCancelled;
-            uiInput.submit.action.performed -= OnSubmitted;
+            uiInput.Navigated -= OnMoved;
+            uiInput.Cancelled -= OnCancelled;
+            uiInput.Submitted -= OnSubmitted;
         }
         
-        private void OnMoved(InputAction.CallbackContext context)
+        private void OnMoved()
         {
             Debug.Log("OnMoved");
             if (movedSelection == null)
@@ -43,7 +38,7 @@ namespace Handlers
             movedSelection.Play();
         }
         
-        private void OnCancelled(InputAction.CallbackContext context)
+        private void OnCancelled()
         {
             Debug.Log("OnCancelled");
             if (cancelledSelection == null)
@@ -54,7 +49,7 @@ namespace Handlers
             cancelledSelection.Play();
         }
         
-        private void OnSubmitted(InputAction.CallbackContext context)
+        private void OnSubmitted()
         {
             Debug.Log("OnSubmitted");
             if (selected == null)

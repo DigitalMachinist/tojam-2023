@@ -1,3 +1,4 @@
+using System;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine;
@@ -7,10 +8,15 @@ using System.Collections;
 
 public class UIMenu_ControllerSupport : MonoBehaviour
 {
+    public event Action Navigated;
+    public event Action Cancelled;
+    public event Action Submitted;
+    
     private EventSystem eventSystem;
     public InputActionAsset navigateAction;
     private InputAction navigateInput;
     private InputAction closeMenuInput;
+    private InputAction submitMenuInput;
     private List<Button> selectables = new List<Button>();
     public List<Button> menuSelectables = new List<Button>();
     public List<Button> playSelectables = new List<Button>();
@@ -24,9 +30,11 @@ public class UIMenu_ControllerSupport : MonoBehaviour
         eventSystem = EventSystem.current;
         navigateInput = navigateAction.FindAction("Navigate");
         closeMenuInput = navigateAction.FindAction("Cancel");
+        submitMenuInput = navigateAction.FindAction("Submit");
 
         navigateInput.performed += ctx => OnNavigate(ctx.ReadValue<Vector2>());
         closeMenuInput.performed += ctx => OnCloseMenu();
+        submitMenuInput.performed += ctx => OnSubmit();
 
         selectables = new List<Button>(menuSelectables);
 
@@ -38,6 +46,7 @@ public class UIMenu_ControllerSupport : MonoBehaviour
         {
             return;
         }
+        
         if (navigateInput.y > 0.1f)
         {
             Debug.Log("Up");
@@ -73,6 +82,7 @@ public class UIMenu_ControllerSupport : MonoBehaviour
         selectables = new List<Button>(menuSelectables);
         current = selectables[0];
         current.Select();
+        Cancelled?.Invoke();
     }
 
     private void SelectUp()
@@ -87,6 +97,7 @@ public class UIMenu_ControllerSupport : MonoBehaviour
             current = selectables[selectables.Count - 1];
             current.Select();
         }
+        Navigated?.Invoke();
         StartCoroutine(Delay());
     }
 
@@ -102,6 +113,12 @@ public class UIMenu_ControllerSupport : MonoBehaviour
             current = selectables[0];
             current.Select();
         }
+        Navigated?.Invoke();
         StartCoroutine(Delay());
+    }
+    
+    public void OnSubmit()
+    {
+        Submitted?.Invoke();
     }
 }

@@ -450,11 +450,15 @@ public class Player : MonoBehaviour
 
         EmitPartPlaced(part);
 
-        if( part == Arm)
-        IsArmAttached(false);
+        if (part == Arm)
+        {
+            IsArmAttached(false);
+        }
 
-        if( part == Leg)
-        IsLegAttached(false);
+        if (part == Leg)
+        {
+            IsLegAttached(false);
+        }
     }
 
     void Recall(Part part)

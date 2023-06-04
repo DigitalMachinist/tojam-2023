@@ -40,10 +40,6 @@ namespace Interactables
             {
                 return;
             }
-            if (!other.collider.CompareTag("Attachable") && !other.collider.CompareTag("Unattachable"))
-            {
-                return;
-            }
             
             Bounce.Play();
         }

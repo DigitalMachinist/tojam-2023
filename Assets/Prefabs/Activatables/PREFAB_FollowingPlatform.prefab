@@ -214,7 +214,7 @@ MonoBehaviour:
   EnabledLightColour: {r: 0, g: 1, b: 0, a: 1}
   activateOnStart: 0
   speed: {x: 10, y: 0, z: 10}
-  targetTransform: {fileID: 0}
+  offset: {x: 2, y: 0, z: 0}
   MovingSound: {fileID: 1888275582654870040}
   <Switches>k__BackingField: []
 --- !u!33 &5365300813320924975

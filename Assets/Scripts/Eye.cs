@@ -46,12 +46,14 @@ public class Eye : Part
     {
         attachedCamera.enabled = false;
         detachedCamera.enabled = true;
+        transform.localRotation = Quaternion.identity;
     }
 
     void OnEyeRecalled()
     {
         attachedCamera.enabled = true;
         detachedCamera.enabled = false;
+        transform.localRotation = Quaternion.identity;
     }
 
     void OnLaserStarted()

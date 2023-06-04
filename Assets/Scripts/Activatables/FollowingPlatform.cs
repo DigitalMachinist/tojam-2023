@@ -19,7 +19,7 @@ namespace Activatables
         [Header("Movement Settings")] 
         public bool activateOnStart;
         public Vector3 speed = Vector3.one;
-        public Transform targetTransform;
+        public Vector3 offset = Vector3.zero;
 
         [field: Header("Activation")]
         public AudioSource MovingSound;
@@ -27,10 +27,11 @@ namespace Activatables
 
         public bool IsActivated { get; private set; }
         public Vector3 StartPosition { get; private set; }
+        public Transform TargetTransform { get; private set; }
         
         public void OnActivated()
         {
-            targetTransform = FindObjectOfType<Player>().transform;
+            TargetTransform = FindObjectOfType<Player>().transform;
             IsActivated = true;
             if (Light != null)
             {
@@ -45,7 +46,7 @@ namespace Activatables
 
         public void OnDeactivated()
         {
-            targetTransform = null;
+            TargetTransform = null;
             IsActivated = false;
             if (Light != null)
             {
@@ -80,14 +81,16 @@ namespace Activatables
 
         void FixedUpdate()
         {
+            var targetPosition = transform.position + offset;
+            
             Vector3 error;
-            if (targetTransform == null || !IsActivated)
+            if (TargetTransform == null || !IsActivated)
             {
                 error = StartPosition - transform.position;
             }
             else
             {
-                error = targetTransform.position - transform.position;
+                error = TargetTransform.position + offset - transform.position;
             }
 
             if (speed.x > 0f)

@@ -34,6 +34,14 @@ public class Eye : Part
         OnEyeRecalled();
     }
 
+    void OnDestroy()
+    {
+        Player.EyePlaced -= OnEyePlaced;
+        Player.EyeRecalled -= OnEyeRecalled;
+        Player.LaserStarted -= OnLaserStarted;
+        Player.LaserEnded -= OnLaserEnded;
+    }
+
     void OnEyePlaced()
     {
         attachedCamera.enabled = false;

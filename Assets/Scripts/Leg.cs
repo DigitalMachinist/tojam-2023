@@ -24,6 +24,14 @@ public class Leg : Part
         Player.LegRecalled += OnLegRecalled;
     }
 
+    void OnDestroy()
+    {
+        Player.Jumped -= OnJumped;
+        Player.Kicked -= OnKicked;
+        Player.LegPlaced -= OnLegPlaced;
+        Player.LegRecalled -= OnLegRecalled;
+    }
+
     void OnJumped()
     {
     }

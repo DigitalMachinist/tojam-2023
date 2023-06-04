@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Interactables;
 using UnityEngine;
 
@@ -32,6 +33,16 @@ public class Arm : Part
         Player.GrabEnded += OnGrabEnded;
         Player.InteractStarted += OnInteractStarted;
         Player.InteractEnded += OnInteractEnded;
+    }
+
+    void OnDestroy()
+    {
+        Player.ArmPlaced -= OnArmPlaced;
+        Player.ArmRecalled -= OnArmRecalled;
+        Player.GrabStarted -= OnGrabStarted;
+        Player.GrabEnded -= OnGrabEnded;
+        Player.InteractStarted -= OnInteractStarted;
+        Player.InteractEnded -= OnInteractEnded;
     }
 
     void OnArmPlaced()

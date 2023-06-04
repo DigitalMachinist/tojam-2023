@@ -32,6 +32,10 @@ namespace Interactables
         private void OnCollisionEnter(Collision other)
         {
             if (!other.collider.CompareTag("Attachable") && !other.collider.CompareTag("Unattachable"))
+            {
+                return;
+            }
+            
             Bounce.Play();
         }
     }

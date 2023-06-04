@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Bits: 128
   grabVisibilityLayerMask:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 137
   grabTransform: {fileID: 1620615218090230033}
   minInteractRange: 0.1
   maxInteractRange: 10
@@ -64,7 +64,7 @@ MonoBehaviour:
     m_Bits: 128
   interactVisibilityLayerMask:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 137
 --- !u!1 &8306557871299781623
 GameObject:
   m_ObjectHideFlags: 0

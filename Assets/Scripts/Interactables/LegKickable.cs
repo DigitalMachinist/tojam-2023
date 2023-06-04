@@ -5,6 +5,7 @@ namespace Interactables
 {
     public class LegKickable : MonoBehaviour
     {
+        public AudioSource Kicked;
         public AudioSource Bounce;
         
         public Transform Transform { get; }
@@ -19,6 +20,10 @@ namespace Interactables
             }
             
             Rigidbody.AddForce(force, ForceMode.Impulse);
+            if (Kicked != null)
+            {
+                Kicked.Play();
+            }
             
             Debug.LogWarning("Kicked by leg!");
         }
@@ -31,6 +36,10 @@ namespace Interactables
 
         private void OnCollisionEnter(Collision other)
         {
+            if (Bounce == null)
+            {
+                return;
+            }
             if (!other.collider.CompareTag("Attachable") && !other.collider.CompareTag("Unattachable"))
             {
                 return;

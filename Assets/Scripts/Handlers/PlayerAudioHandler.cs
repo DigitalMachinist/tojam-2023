@@ -28,6 +28,7 @@ namespace Handlers
         [SerializeField] AudioSource legPlaced;
         [SerializeField] AudioSource legRecalled;
         [SerializeField] AudioSource moved;
+        [SerializeField] AudioSource pauseToggled;
         [SerializeField] AudioSource rotated;
         [SerializeField] AudioSource spawned;
         
@@ -72,6 +73,7 @@ namespace Handlers
             player.LegPlaced += OnLegPlaced;
             player.LegRecalled += OnLegRecalled;
             player.Moved += OnMoved;
+            player.PauseToggled += OnPauseToggled;
             player.Rotated += OnRotated;
             player.Spawned += OnSpawned;
 
@@ -134,6 +136,7 @@ namespace Handlers
             player.LegPlaced -= OnLegPlaced;
             player.LegRecalled -= OnLegRecalled;
             player.Moved -= OnMoved;
+            player.PauseToggled -= OnPauseToggled;
             player.Rotated -= OnRotated;
             player.Spawned -= OnSpawned;
             
@@ -268,16 +271,21 @@ namespace Handlers
             legRecalled.Play();
         }
         
-        void OnRotated(Vector3 obj)
-        {
-            moved.Play();
-        }
-
         void OnMoved(Vector3 obj)
         {
             rotated.Play();
         }
         
+        void OnPauseToggled(bool isPaused)
+        {
+            pauseToggled.Play();
+        }
+        
+        void OnRotated(Vector3 obj)
+        {
+            moved.Play();
+        }
+
         void OnSpawned()
         {
             spawned.Play();

@@ -11,7 +11,7 @@ namespace Activatables
         public event Action Deactivated;
         
         [field: Header("Activation")] 
-        [field: SerializeField] public bool IsActivated { get; private set; }
+        public AudioSource MovingSound;
         [field: SerializeField] public Switch[] Switches { get; private set; }
 
         [Header("Indicator Lights")]
@@ -29,6 +29,8 @@ namespace Activatables
         [SerializeField] private float beforeFirstMovementDelay = 0f;
         [SerializeField] private float beforeSecondMovementDelay = 0f;
         
+        public bool IsActivated { get; private set; }
+        
         private Vector3 startPosition;
         private Transform currentTargetTransform;
         
@@ -44,6 +46,10 @@ namespace Activatables
             {
                 Light.material.SetColor("_EmissionColor", EnabledLightColour);
             }
+            if (MovingSound != null)
+            {
+                MovingSound.Play();
+            }
             Activated?.Invoke();
         }
 
@@ -54,6 +60,10 @@ namespace Activatables
             if (Light != null)
             {
                 Light.material.SetColor("_EmissionColor", DisabledLightColour);
+            }
+            if (MovingSound != null)
+            {
+                MovingSound.Stop();
             }
             Deactivated?.Invoke();
         }

@@ -22,6 +22,7 @@ namespace Activatables
         public Transform targetTransform;
 
         [field: Header("Activation")]
+        public AudioSource MovingSound;
         [field: SerializeField] public Switch[] Switches { get; private set; }
 
         public bool IsActivated { get; private set; }
@@ -35,6 +36,10 @@ namespace Activatables
             {
                 Light.material.SetColor("_EmissionColor", EnabledLightColour);
             }
+            if (MovingSound != null)
+            {
+                MovingSound.Play();
+            }
             Activated?.Invoke();
         }
 
@@ -45,6 +50,10 @@ namespace Activatables
             if (Light != null)
             {
                 Light.material.SetColor("_EmissionColor", DisabledLightColour);
+            }
+            if (MovingSound != null)
+            {
+                MovingSound.Stop();
             }
             Deactivated?.Invoke();
         }

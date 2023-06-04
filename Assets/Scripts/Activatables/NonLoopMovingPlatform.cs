@@ -11,13 +11,15 @@ namespace Activatables
         public event Action Deactivated;
         
         [field: Header("Activation")] 
-        [field: SerializeField] public bool IsActivated { get; private set; }
+        public AudioSource MovingSound;
         [field: SerializeField] public Switch[] Switches { get; private set; }
         
         [Header("Movement Settings")] 
         [SerializeField] bool activateOnStart;
         [SerializeField] private float movementDuration = 3f;
         [SerializeField] private Transform targetTransform;
+        
+        public bool IsActivated { get; private set; }
         
         private Vector3 startPosition;
         private Transform currentTargetTransform;
@@ -27,6 +29,10 @@ namespace Activatables
             transform.DOKill();
             transform.DOMove(targetTransform.position, movementDuration);
             IsActivated = true;
+            if (MovingSound != null)
+            {
+                MovingSound.Play();
+            }
             Activated?.Invoke();
         }
 
@@ -35,6 +41,10 @@ namespace Activatables
             transform.DOKill();
             transform.DOMove(startPosition, movementDuration);
             IsActivated = false;
+            if (MovingSound != null)
+            {
+                MovingSound.Stop();
+            }
             Deactivated?.Invoke();
         }
         

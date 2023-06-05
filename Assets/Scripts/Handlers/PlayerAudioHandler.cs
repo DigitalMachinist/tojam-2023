@@ -95,6 +95,7 @@ namespace Handlers
             eyeInteractables = FindObjectsOfType<EyeInteractable>();
             foreach (var eyeInteractable in eyeInteractables)
             {
+                Debug.Log(eyeInteractable.name);
                 eyeInteractable.Switch.Activated += OnEyeInteractableActivated;
                 eyeInteractable.Switch.Deactivated += OnEyeInteractableDeactivated;
             }

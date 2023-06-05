@@ -33,7 +33,7 @@ namespace Interactables
             }
         }
 
-        void Start()
+        void Awake()
         {
             Renderer = GetComponentInChildren<Renderer>();
             Switch = GetComponentInChildren<Switch>();

@@ -10,6 +10,7 @@ public class ReticuleController : MonoBehaviour
     public Image Leg;
     public Image ArmAndLeg;
     public LayerMask LayerMask;
+    public float Range = 5f;
     
     void Update()
     {
@@ -29,7 +30,13 @@ public class ReticuleController : MonoBehaviour
             return;
         }
 
-        Debug.Log(hitInfo.collider.name);
+        if (hitInfo.distance > Range)
+        {
+            Neutral.gameObject.SetActive(true);
+            return;
+        }
+        
+        // Debug.Log(hitInfo.collider.name);
         // Debug.Log(cameraTransform.forward);
         // Debug.DrawRay(ray.origin, hitInfo.point - ray.origin, Color.magenta, 2f);
         if (hitInfo.collider.CompareTag("Untagged"))

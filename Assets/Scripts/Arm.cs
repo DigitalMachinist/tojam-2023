@@ -77,7 +77,7 @@ public class Arm : Part
         
         grabbedInteractable = closestInteractable.Grab(grabTransform);
 
-        if (grabbedInteractable.CompareTag("Box"))
+        if (grabbedInteractable != null && grabbedInteractable.CompareTag("Box"))
         {
             IsGrabbingBox = true;
         }

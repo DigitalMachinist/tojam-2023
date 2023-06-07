@@ -117,25 +117,12 @@ public class Player : MonoBehaviour
     {
         playerInputHandler = GetComponent<PlayerInputHandler>();
         playerInputHandler.JumpPressed += OnJumpPressed;
-
         playerInputHandler.AttachDetachEyePressed += OnAttachDetachEyePressed;
         playerInputHandler.UseEyePressed += OnUseEyePressed;
-
         playerInputHandler.AttachDetachLeftArmPressed += OnAttachDetachLeftArmPressed;
         playerInputHandler.UseLeftArmPressed += OnUseLeftArmPressed;
-
-        // TODO: Uncomment these if we implement the right arm.
-        // playerInputHandler.AttachDetachRightArmPressed += OnAttachDetachRightArmPressed;
-        // playerInputHandler.UseRightArmPressed += OnUseRightArmPressed;
-
         playerInputHandler.AttachDetachLeftLegPressed += OnAttachDetachLeftLegPressed;
         playerInputHandler.UseLeftLegPressed += OnUseLeftLegPressed;
-
-        // TODO: Uncomment these if we implement the right leg.
-        // playerInputHandler.AttachDetachRightLegPressed += OnAttachDetachRightLegPressed;
-        // playerInputHandler.UseRightLegPressed += OnUseRightLegPressed;
-        
-        // TODO: Handle pause somewhere else?
         playerInputHandler.PausePressed += OnPausePressed;
 
         killable = GetComponentInChildren<Killable>();
@@ -144,26 +131,17 @@ public class Player : MonoBehaviour
 
     void OnDestroy()
     {
-        playerInputHandler.JumpPressed -= OnJumpPressed;
+        if (!isPaused)
+        {
+            playerInputHandler.JumpPressed -= OnJumpPressed;
+            playerInputHandler.AttachDetachEyePressed -= OnAttachDetachEyePressed;
+            playerInputHandler.UseEyePressed -= OnUseEyePressed;
+            playerInputHandler.AttachDetachLeftArmPressed -= OnAttachDetachLeftArmPressed;
+            playerInputHandler.UseLeftArmPressed -= OnUseLeftArmPressed;
+            playerInputHandler.AttachDetachLeftLegPressed -= OnAttachDetachLeftLegPressed;
+            playerInputHandler.UseLeftLegPressed -= OnUseLeftLegPressed;
+        }
 
-        playerInputHandler.AttachDetachEyePressed -= OnAttachDetachEyePressed;
-        playerInputHandler.UseEyePressed -= OnUseEyePressed;
-
-        playerInputHandler.AttachDetachLeftArmPressed -= OnAttachDetachLeftArmPressed;
-        playerInputHandler.UseLeftArmPressed -= OnUseLeftArmPressed;
-        
-        // TODO: Uncomment these if we implement the right arm.
-        // playerInputHandler.AttachDetachRightArmPressed -= OnAttachDetachRightArmPressed;
-        // playerInputHandler.UseRightArmPressed -= OnUseRightArmPressed;
-
-        playerInputHandler.AttachDetachLeftLegPressed -= OnAttachDetachLeftLegPressed;
-        playerInputHandler.UseLeftLegPressed -= OnUseLeftLegPressed;
-
-        // TODO: Uncomment these if we implement the right leg.
-        // playerInputHandler.AttachDetachRightLegPressed -= OnAttachDetachRightLegPressed;
-        // playerInputHandler.UseRightLegPressed -= OnUseRightLegPressed;
-        
-        // TODO: Handle pause somewhere else?
         playerInputHandler.PausePressed -= OnPausePressed;
         
         killable.Killed -= OnKilled;
@@ -417,6 +395,28 @@ public class Player : MonoBehaviour
     {
         isPaused ^= true;
         enabled = !isPaused;
+        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isPaused;
+        // if (isPaused)
+        // {
+        //     playerInputHandler.JumpPressed -= OnJumpPressed;
+        //     playerInputHandler.AttachDetachEyePressed -= OnAttachDetachEyePressed;
+        //     playerInputHandler.UseEyePressed -= OnUseEyePressed;
+        //     playerInputHandler.AttachDetachLeftArmPressed -= OnAttachDetachLeftArmPressed;
+        //     playerInputHandler.UseLeftArmPressed -= OnUseLeftArmPressed;
+        //     playerInputHandler.AttachDetachLeftLegPressed -= OnAttachDetachLeftLegPressed;
+        //     playerInputHandler.UseLeftLegPressed -= OnUseLeftLegPressed;
+        // }
+        // else
+        // {
+        //     playerInputHandler.JumpPressed += OnJumpPressed;
+        //     playerInputHandler.AttachDetachEyePressed += OnAttachDetachEyePressed;
+        //     playerInputHandler.UseEyePressed += OnUseEyePressed;
+        //     playerInputHandler.AttachDetachLeftArmPressed += OnAttachDetachLeftArmPressed;
+        //     playerInputHandler.UseLeftArmPressed += OnUseLeftArmPressed;
+        //     playerInputHandler.AttachDetachLeftLegPressed += OnAttachDetachLeftLegPressed;
+        //     playerInputHandler.UseLeftLegPressed += OnUseLeftLegPressed;
+        // }
         PauseToggled?.Invoke(isPaused);
     }
 

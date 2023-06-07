@@ -50,6 +50,22 @@ namespace Handlers
             playerActions.PlayerActionMap.Pause.performed += OnPausePressed;
         }
 
+        private void OnDestroy()
+        {
+            playerActions.PlayerActionMap.Jump.performed -= OnJump;
+            playerActions.PlayerActionMap.AttachDetachEye.performed -= OnAttachDetachEye;
+            playerActions.PlayerActionMap.UseEye.performed -= OnUseEye;
+            playerActions.PlayerActionMap.AttachDetachLeftArm.performed -= OnAttachDetachLeftArm;
+            playerActions.PlayerActionMap.UseLeftArm.performed -= OnUseLeftArm;
+            playerActions.PlayerActionMap.AttachDetachRightArm.performed -= OnAttachDetachRightArm;
+            playerActions.PlayerActionMap.UseRightArm.performed -= OnUseRightArm;
+            playerActions.PlayerActionMap.AttachDetachLeftLeg.performed -= OnAttachDetachLeftLeg;
+            playerActions.PlayerActionMap.UseLeftLeg.performed -= OnUseLeftLeg;
+            playerActions.PlayerActionMap.AttachDetachRightLeg.performed -= OnAttachDetachRightLeg;
+            playerActions.PlayerActionMap.UseRightLeg.performed -= OnUseRightLeg;
+            playerActions.PlayerActionMap.Pause.performed -= OnPausePressed;
+        }
+
         void Start() => SetInputEnabled(true);
         
         void Update()
@@ -79,73 +95,73 @@ namespace Handlers
 
         void OnJump(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] Jump");
+            // Debug.Log("[PlayerInputHandler] Jump");
             JumpPressed?.Invoke();
         }
 
         void OnAttachDetachEye(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] AttachDetachEye");
+            // Debug.Log("[PlayerInputHandler] AttachDetachEye");
             AttachDetachEyePressed?.Invoke();
         }
         
         void OnUseEye(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] UseEye");
+            // Debug.Log("[PlayerInputHandler] UseEye");
             UseEyePressed?.Invoke();
         }
         
         void OnAttachDetachLeftArm(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] AttachDetachLeftArm");
+            // Debug.Log("[PlayerInputHandler] AttachDetachLeftArm");
             AttachDetachLeftArmPressed?.Invoke();
         }
         
         void OnUseLeftArm(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] UseLeftArm");
+            // Debug.Log("[PlayerInputHandler] UseLeftArm");
             UseLeftArmPressed?.Invoke();
         }
         
         void OnAttachDetachRightArm(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] AttachDetachRightArm");
+            // Debug.Log("[PlayerInputHandler] AttachDetachRightArm");
             AttachDetachRightArmPressed?.Invoke();
         }
         
         void OnUseRightArm(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] UseRightArm");
+            // Debug.Log("[PlayerInputHandler] UseRightArm");
             UseRightArmPressed?.Invoke();
         }
         
         void OnAttachDetachLeftLeg(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] AttachDetachLeftLeg");
+            // Debug.Log("[PlayerInputHandler] AttachDetachLeftLeg");
             AttachDetachLeftLegPressed?.Invoke();
         }
         
         void OnUseLeftLeg(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] UseLeftLeg");
+            // Debug.Log("[PlayerInputHandler] UseLeftLeg");
             UseLeftLegPressed?.Invoke();
         }
         
         void OnAttachDetachRightLeg(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] AttachDetachRightLeg");
+            // Debug.Log("[PlayerInputHandler] AttachDetachRightLeg");
             AttachDetachRightLegPressed?.Invoke();
         }
         
         void OnUseRightLeg(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] UseRightLeg");
+            // Debug.Log("[PlayerInputHandler] UseRightLeg");
             UseRightLegPressed?.Invoke();
         }
         
         void OnPausePressed(InputAction.CallbackContext context)
         {
-            Debug.Log("[PlayerInputHandler] Pause pressed");
+            // Debug.Log("[PlayerInputHandler] Pause pressed");
             PausePressed?.Invoke();
         }
         

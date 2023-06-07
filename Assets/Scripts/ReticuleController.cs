@@ -41,42 +41,42 @@ public class ReticuleController : MonoBehaviour
         // Debug.DrawRay(ray.origin, hitInfo.point - ray.origin, Color.magenta, 2f);
         if (hitInfo.collider.CompareTag("Untagged"))
         {
-            Debug.Log("Untagged");
+            // Debug.Log("Untagged");
             Neutral.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Attachable"))
         {
-            Debug.Log("Attachable");
+            // Debug.Log("Attachable");
             Attachable.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Arm"))
         {
-            Debug.Log("Arm");
+            // Debug.Log("Arm");
             Arm.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Eye"))
         {
-            Debug.Log("Eye");
+            // Debug.Log("Eye");
             Eye.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Leg"))
         {
-            Debug.Log("Leg");
+            // Debug.Log("Leg");
             Leg.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Box"))
         {
-            Debug.Log("Box");
+            // Debug.Log("Box");
             ArmAndLeg.gameObject.SetActive(true);
         }
         else if (hitInfo.collider.CompareTag("Ball"))
         {
-            Debug.Log("Ball");
+            // Debug.Log("Ball");
             ArmAndLeg.gameObject.SetActive(true);
         }
         else
         {
-            Debug.Log("Other Tag");
+            // Debug.Log("Other Tag");
             Neutral.gameObject.SetActive(true);
         }
     }

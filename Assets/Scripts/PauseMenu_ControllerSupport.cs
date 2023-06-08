@@ -1,4 +1,3 @@
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu_ControllerSupport : MonoBehaviour
 {
+    public AudioSource NavigateAudioSource;
     public InputActionAsset navigateAction;
     private InputAction navigateInput;
     private InputAction submitMenuInput;
@@ -25,7 +25,7 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
         submitMenuInput = navigateAction.FindAction("Submit");
         submitMenuInput.performed += ctx => OnSubmit();
         
-        current = BottomLeftButton;
+        current = TopLeftButton;
         current.Select();
     }
     public void OnNavigate(Vector2 navigateInput)
@@ -67,11 +67,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = TopLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (TopRightButton != null)
             {
                 current = TopRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
         else if (current == BottomRightButton)
@@ -80,11 +82,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = TopRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (TopLeftButton != null)
             {
                 current = TopLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
 
@@ -102,11 +106,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = BottomLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (BottomRightButton != null)
             {
                 current = BottomRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
         else if (current == TopRightButton)
@@ -115,11 +121,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = BottomRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (BottomLeftButton != null)
             {
                 current = BottomLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
 
@@ -137,11 +145,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = BottomLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (TopLeftButton != null)
             {
                 current = TopLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
         else if (current == TopRightButton)
@@ -150,11 +160,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = TopLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (BottomLeftButton != null)
             {
                 current = BottomLeftButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
 
@@ -172,11 +184,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = BottomRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (TopRightButton != null)
             {
                 current = TopRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
         else if (current == TopLeftButton)
@@ -185,11 +199,13 @@ public class PauseMenu_ControllerSupport : MonoBehaviour
             {
                 current = TopRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
             else if (BottomRightButton != null)
             {
                 current = BottomRightButton;
                 current.Select();
+                NavigateAudioSource.Play();
             }
         }
 
